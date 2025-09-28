@@ -20,7 +20,7 @@ class LoginActivity: AppCompatActivity() {
 
 
 
-private lateinit var tvRedirect: TextView
+private lateinit var btnRedirect: Button
 
 lateinit var etUserEmail: EditText
 
@@ -34,6 +34,8 @@ lateinit var authenticator: FirebaseAuth
 //I'm starting to dislike how android studio operates
 //for now do the basic login functionality we'll add anims and stuff later
 //ok the listener stuff is actually pretty cool maybe I like it a bit more
+//setup to make switching between firebase and room db better
+//nope just use firebase to login and room for the entries
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
