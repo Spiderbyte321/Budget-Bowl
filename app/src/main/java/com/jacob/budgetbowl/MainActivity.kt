@@ -12,12 +12,18 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import java.net.Authenticator
+import com.jacob.budgetbowl.SignUpActivity
+import com.jacob.budgetbowl.LoginActivity
 
 class MainActivity : AppCompatActivity() {
     //Just the opening screen logic so pay attention to miro for all activities
     //find out how to use room DB
     //cool I know how to use room and it sucks or maybe just SQL sucks either way I hate it
+    //two buttons that load the required screens: login/sign up
 
+
+    private lateinit var btnSignUp: Button
+    private lateinit var btnLogin: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +37,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Bind stuff
+        btnSignUp = findViewById(R.id.toSignUpBTN)
+        btnLogin = findViewById(R.id.toLoginBTN)
+
+        btnSignUp.setOnClickListener{
+
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
 
