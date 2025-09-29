@@ -83,7 +83,10 @@ class SignUpActivity: AppCompatActivity() {
 
         //for now we switch back to login screen later we'll go straight to the home menu
         //maybe instead of oncomplete use of success and on failure?
-        val intent = Intent(this, LoginActivity::class.java)
+        //Add the user info we want to push to the database
+        val intent = Intent(this, SetInitialBudgetActivity::class.java)
+        intent.putExtra("UserEmail",UserEmail.text.toString())
+
         Authenticator.createUserWithEmailAndPassword(UserEmail.text.toString(),UserPassword.text.toString())
             .addOnCompleteListener(this)
             {
