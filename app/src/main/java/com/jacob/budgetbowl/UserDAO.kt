@@ -13,7 +13,7 @@ interface UserDAO {
     @Query("SELECT * FROM userDB")
     fun getAllUsers():List<UserData>
 
-    //@Query("SELECT * FROM USERDB WHERE userName=:userName")
-    //fun getUser(userName:String)
+    //@Query("SELECT * FROM userDB where  userName = UserName")
+    //fun getUser(userName:String): UserData
 
 }

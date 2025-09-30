@@ -10,12 +10,12 @@
         android:id="@+id/txtRegisterheading"
         android:layout_width="134dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="524dp"
+        android:layout_marginBottom="520dp"
         android:text="Register"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgTopDecor"
         app:layout_constraintVertical_bias="0.027" />
@@ -161,4 +161,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgTopDecor2"
         app:layout_constraintVertical_bias="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -104,6 +104,7 @@ class SetInitialBudgetActivity : AppCompatActivity() {
     {
 
         //add value validation
+        //also do the pop up to confirm
 
         val foundIntent = intent
         val userName= foundIntent.getStringExtra("UserName")
@@ -118,7 +119,7 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         //while String is a non-nullable string data type
         //since we ensure the user fills in their details we can comfortably assume
         //that we don't need to feed default values or worry about null values
-        val userData = UserData(userName = userName!!, NameSurname = fullName!!, Password = passWord!!, MinBudget = minBudget, MaxBudget = maxBudget, TargetBudget = targetBudget)
+        val userData = UserData(UserName = userName!!, NameSurname = fullName!!, Password = passWord!!, MinBudget = minBudget, MaxBudget = maxBudget, TargetBudget = targetBudget)
         userDAO.insertUser(userData)
 
 
