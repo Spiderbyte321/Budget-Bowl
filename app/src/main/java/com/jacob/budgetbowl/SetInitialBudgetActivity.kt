@@ -1,6 +1,8 @@
 package com.jacob.budgetbowl
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -23,6 +25,16 @@ class SetInitialBudgetActivity : AppCompatActivity() {
     private lateinit var roomDB: AppDatabase
     private lateinit var userDAO: UserDAO
 
+    private lateinit var inputMinBudget: EditText
+
+    private lateinit var inputMaxBudget: EditText
+
+    private lateinit var inputTargetBudget: EditText
+
+    private lateinit var confirmButton: Button
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,6 +54,13 @@ class SetInitialBudgetActivity : AppCompatActivity() {
          roomDB = AppDatabase.getDatabase(this) as AppDatabase
          userDAO = roomDB.userDAO()
 
+        inputMinBudget = findViewById(R.id.minBudgetET)
+        inputMaxBudget = findViewById(R.id.maxBudgetET)
+        inputTargetBudget = findViewById(R.id.targerBudgetET)
+        confirmButton = findViewById(R.id.confirmButton)
+
+
+        confirmButton.setOnClickListener { AddUserToDatabse() }
 
 
     }
@@ -49,10 +68,25 @@ class SetInitialBudgetActivity : AppCompatActivity() {
     //GOT IT!!!
     private fun AddUserToDatabse()
     {
+
+        //add value validation
+
         val foundIntent = intent
-        val userEmail = foundIntent.getStringExtra("UserEmail")
+        val userName= foundIntent.getStringExtra("UserName")
+        val fullName= foundIntent.getStringExtra("FullName")
+        val passWord = foundIntent.getStringExtra("UserPassword")
+        val minBudget:Int = inputMinBudget.text.toString().toInt()
+        val maxBudget:Int = inputMaxBudget.text.toString().toInt()
+        val targetBudget:Int = inputTargetBudget.text.toString().toInt()
         //create a userDAO instance and then add it to room
-        val userData = UserData(userName = "", NameSurname = "", Password = "", MinBudget = 0, MaxBudget = 10, TargetBudget = 5)
+        //!! forces the value to be non-nullable
+        //get extra returns String? which is a nullable string
+        //while String is a non-nullable string data type
+        //since we ensure the user fills in their details we can comfortably assume
+        //that we don't need to feed default values or worry about null values
+        val userData = UserData(userName = userName!!, NameSurname = fullName!!, Password = passWord!!, MinBudget = minBudget, MaxBudget = maxBudget, TargetBudget = targetBudget)
         userDAO.insertUser(userData)
     }
+
+    //Now i need to do the rest uuuuuuuggghhhh
 }

@@ -7,88 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".SetInitialBudgetActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="435dp"
-        tools:layout_editor_absoluteY="1350dp" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="1521dp" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="711dp"
-        tools:layout_editor_absoluteY="1529dp" />
-
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/minBudgetET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="295dp"
-        tools:layout_editor_absoluteY="659dp" />
+        android:inputType="numberSigned"
+        tools:layout_editor_absoluteX="78dp"
+        tools:layout_editor_absoluteY="98dp" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/maxBudgetET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="875dp" />
+        android:inputType="numberSigned"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="220dp" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/targerBudgetET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="590dp"
-        tools:layout_editor_absoluteY="905dp" />
+        android:inputType="numberSigned"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="328dp" />
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="365dp"
-        tools:layout_editor_absoluteY="625dp" />
+        android:text="Button"
+        tools:layout_editor_absoluteX="237dp"
+        tools:layout_editor_absoluteY="634dp" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="106dp"
-        tools:layout_editor_absoluteY="820dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="611dp"
-        tools:layout_editor_absoluteY="801dp" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="958dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="371dp" />
+        android:text="Button"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="634dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

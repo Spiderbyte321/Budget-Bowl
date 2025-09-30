@@ -22,6 +22,10 @@ class SignUpActivity: AppCompatActivity() {
     //find out how to use room DB
     //cool I know how to use room and it sucks or maybe just SQL sucks either way I hate it
 
+
+    private lateinit var etInputFullname: EditText
+
+    private lateinit var etInputUserName: EditText
     private lateinit var etInputUserEmail: EditText
 
     private lateinit var etInputUserPassword: EditText
@@ -46,12 +50,20 @@ class SignUpActivity: AppCompatActivity() {
         }
 
         //Bind stuff
+
+
+        etInputFullname = findViewById(R.id.etFullNameInput)
+        etInputUserName = findViewById(R.id.etUserNameInput)
         etInputUserEmail =findViewById(R.id.etUserEmailInput)
         etInputUserPassword = findViewById(R.id.etUserPasswordInput)
         etInputConfirmUserPassword = findViewById(R.id.etConfirmUserPasswordInput)
         btnSignUp= findViewById(R.id.ConfirmSignUpBTN)
         btnLoginRedirect= findViewById(R.id.RedirectBTN)
         Authenticator = FirebaseAuth.getInstance()
+
+        btnSignUp.setOnClickListener{
+            SignUp()
+        }
     }
 
 
@@ -85,7 +97,9 @@ class SignUpActivity: AppCompatActivity() {
         //maybe instead of oncomplete use of success and on failure?
         //Add the user info we want to push to the database
         val intent = Intent(this, SetInitialBudgetActivity::class.java)
-        intent.putExtra("UserEmail",UserEmail.text.toString())
+        intent.putExtra("FullName",etInputFullname.text.toString())
+        intent.putExtra("UserName",etInputUserName.text.toString())
+        intent.putExtra("UserPassword",UserPassword.text.toString())
 
         Authenticator.createUserWithEmailAndPassword(UserEmail.text.toString(),UserPassword.text.toString())
             .addOnCompleteListener(this)

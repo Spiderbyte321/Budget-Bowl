@@ -10,77 +10,64 @@
         android:id="@+id/etUserEmailInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="66dp"
-        android:layout_marginTop="168dp"
-        android:layout_marginEnd="136dp"
-        android:layout_marginBottom="40dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/etUserPasswordInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="223dp" />
 
     <EditText
         android:id="@+id/etUserPasswordInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="54dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="147dp"
-        android:layout_marginBottom="32dp"
         android:ems="10"
         android:inputType="textPassword"
         android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/etConfirmUserPasswordInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserEmailInput" />
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="282dp" />
 
     <EditText
         android:id="@+id/etConfirmUserPasswordInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="54dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="147dp"
-        android:layout_marginBottom="73dp"
         android:ems="10"
         android:inputType="textPassword"
         android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/ConfirmSignUpBTN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserPasswordInput" />
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="343dp" />
 
     <Button
         android:id="@+id/ConfirmSignUpBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="94dp"
-        android:layout_marginEnd="201dp"
-        android:layout_marginBottom="201dp"
         android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/RedirectBTN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etConfirmUserPasswordInput" />
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="458dp" />
 
     <Button
         android:id="@+id/RedirectBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="83dp"
-        android:layout_marginEnd="191dp"
-        android:layout_marginBottom="236dp"
         android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ConfirmSignUpBTN" />
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="556dp" />
+
+    <EditText
+        android:id="@+id/etUserNameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="157dp" />
+
+    <EditText
+        android:id="@+id/etFullNameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="91dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
