@@ -50,7 +50,7 @@ lateinit var authenticator: FirebaseAuth
         //later
         // later is now :{
 
-        btnLogin = findViewById(R.id.brnLogin)//misspelled btn ..... dammit
+        btnLogin = findViewById(R.id.btnLogin)//misspelled btn ..... dammit
         etUserEmail = findViewById(R.id.etUsername)
         etPassword = findViewById(R.id.etUserPassword)
 

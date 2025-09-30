@@ -37,8 +37,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Bind stuff
-        btnSignUp = findViewById(R.id.toSignUpBTN)
-        btnLogin = findViewById(R.id.toLoginBTN)
+        btnSignUp = findViewById(R.id.ToSignUpBTN)
+        btnLogin = findViewById(R.id.ToLoginBTN)
 
         btnSignUp.setOnClickListener{
 

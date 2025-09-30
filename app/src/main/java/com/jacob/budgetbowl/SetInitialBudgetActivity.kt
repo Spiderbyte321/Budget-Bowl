@@ -1,8 +1,11 @@
 package com.jacob.budgetbowl
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -33,8 +36,16 @@ class SetInitialBudgetActivity : AppCompatActivity() {
 
     private lateinit var confirmButton: Button
 
+    private lateinit var cancelButton: Button
+
+    private lateinit var categorySpinner: Spinner
+
+    private lateinit var adapter: ArrayAdapter<ECategory>
 
 
+
+    //Spinner population
+    //https://developer.android.com/develop/ui/views/components/spinner
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -58,9 +69,32 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         inputMaxBudget = findViewById(R.id.maxBudgetET)
         inputTargetBudget = findViewById(R.id.targerBudgetET)
         confirmButton = findViewById(R.id.confirmButton)
+        cancelButton = findViewById(R.id.cancelButton)
+        categorySpinner= findViewById(R.id.spCategoryDropDown)
+
+        adapter = ArrayAdapter<ECategory>(
+            this,
+            android.R.layout.simple_spinner_item,
+            ECategory.entries
+        )
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categorySpinner.adapter = adapter
+
+        //set up category stuff
+        //add all our enums to the spinner
+        //This should now show each of our enums in the spinner
 
 
-        confirmButton.setOnClickListener { AddUserToDatabse() }
+        confirmButton.setOnClickListener {
+            AddUserToDatabse()
+            //val intent =Intent(this,)
+            //open dashboard
+        }
+        cancelButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }
@@ -86,6 +120,8 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         //that we don't need to feed default values or worry about null values
         val userData = UserData(userName = userName!!, NameSurname = fullName!!, Password = passWord!!, MinBudget = minBudget, MaxBudget = maxBudget, TargetBudget = targetBudget)
         userDAO.insertUser(userData)
+
+
     }
 
     //Now i need to do the rest uuuuuuuggghhhh
