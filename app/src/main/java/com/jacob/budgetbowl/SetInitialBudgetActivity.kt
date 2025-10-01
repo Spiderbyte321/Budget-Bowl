@@ -124,9 +124,6 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         //since we ensure the user fills in their details we can comfortably assume
         //that we don't need to feed default values or worry about null values
         val userData = UserData(UserName = userName!!, NameSurname = fullName!!, Password = passWord!!, MinBudget = minBudget, MaxBudget = maxBudget, TargetBudget = targetBudget)
-
-        Toast.makeText(this,"Created UserData", Toast.LENGTH_SHORT).show()
-
         CoroutineScope(Dispatchers.IO).launch {userDAO.insertUser(userData)}
 
     }

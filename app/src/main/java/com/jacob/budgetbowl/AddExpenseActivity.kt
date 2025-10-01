@@ -4,10 +4,21 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+
+//Ref module manual for coroutine
 
 class AddExpenseActivity : AppCompatActivity() {
     //get references to all our stuff
@@ -24,6 +35,10 @@ class AddExpenseActivity : AppCompatActivity() {
     private lateinit var btnConfrim: Button
 
     private lateinit var btnAddImage: Button
+
+    private lateinit var roomDB: AppDatabase
+
+    private lateinit var expenseDAO: ExpenseDAO
 
 
 
@@ -45,6 +60,10 @@ class AddExpenseActivity : AppCompatActivity() {
         btnConfrim = findViewById(R.id.btnAddEntry)
         btnAddImage = findViewById(R.id.btnAddImage)
 
+        //get Database and DAO
+        roomDB = AppDatabase.getDatabase(this) as AppDatabase
+        expenseDAO = roomDB.expenseDAO()
+
 
         btnConfrim.setOnClickListener {
             addExpenseEntry()
@@ -57,6 +76,32 @@ class AddExpenseActivity : AppCompatActivity() {
 
     private fun addExpenseEntry()
     {
+        //validate data
+        //create expense object and add it to db
+        // figure out how to optionally add a picture to the expense
+
+
+        if(etAmountSpentInput.text.isBlank())//validate rest of fields
+        {
+            Toast.makeText(this,"all fields need to be filled", Toast.LENGTH_SHORT).show()
+        }
+
+        val amountSpent = etAmountSpentInput.text.toString().toInt()
+        val dateAddedString = etDateInput.text.toString()
+        val dateFormat = SimpleDateFormat("dd/mm/yyyy", Locale.getDefault())
+        val dateObject =dateFormat.parse(dateAddedString)
+        val description = etDescriptionInput.text.toString()
+
+
+        val expenseData = ExpenseEntry(
+            ExpenseAmount = amountSpent,
+            ExpenseDate = dateObject!!,
+            CatId = ECategory.Groceries,
+            ExpesnseDescription = description
+        )
+
+        CoroutineScope(Dispatchers.IO).launch {expenseDAO.insertExpense(expenseData)}
+
 
     }
 }

@@ -4,14 +4,13 @@ import android.graphics.Bitmap
 import android.graphics.Picture
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Date
-
+import java.util.Date
 
 @Entity(tableName = "Expense")
 data class ExpenseEntry(
-  @PrimaryKey(autoGenerate = true) val id: Long,
+  @PrimaryKey(autoGenerate = true) val id: Long=0,
     var ExpenseAmount : Int,
     var ExpenseDate : Date,
     var CatId : ECategory,
-    var ExpenseImage: Bitmap
+    var ExpesnseDescription : String
 )
