@@ -1,5 +1,6 @@
 package com.jacob.budgetbowl
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -29,14 +30,14 @@ class DashboardActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarDashboard.toolbar)
 
-        binding.appBarDashboard.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .setAnchorView(R.id.fab).show()
+        binding.appBarDashboard.fab.setOnClickListener {
+            intent = Intent(this, AddExpenseActivity::class.java)
+            startActivity(intent)
         }
         //We do actually need the FAB so I'll set that up to add an expese
         //uuuuuuuggghhh
         //figure out how to add to content drawer then take a breather
+        //ok so the snackbar is a fancy toast so I can just cut all that and have the FAB open up the activity
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -52,12 +53,18 @@ class DashboardActivity : AppCompatActivity() {
         //then the rest will be handled by android
         //almost there I think I just need to add it to the XML
         //ok here's the order of operations
-        //Step 1 create the fragment XML in the layout folder
-        //Step 2 add that fragment to the mobile_navigation XML file in navigation
+        //Step 1 create the fragment XML in the layout folder/create the activity
+        //Step 2 add that fragment/activity to the mobile_navigation XML file in navigation
         //either through code or the GUI
         //Step 3 Set up the Item on the activity_main_drawer XML in the menu folder
         //Step 4 add that fragment to the above appBarConfiguration
         //N.B don't know if this works with activities or only fragments will test later
+        //Ok all our stuff will need to be activities so if activities can't be added I will cry
+        //I don't have to cry! yay
+        //wait this method is considering these from a menu perspective but I wonder if it will open an activity
+        //I might have to rework this a little to have it open our activities
+        //Well that's what testing is for
+
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

@@ -6,10 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 //Reference Module manual
-@Database(entities = [UserData::class],version=1)
+@Database(entities = [UserData::class, ExpenseEntry::class],version=1)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun userDAO(): UserDAO
+
+    abstract fun expenseDAO(): ExpenseDAO
 
 
     companion object{

@@ -19,7 +19,7 @@
         <item
             android:id="@+id/tester"
             android:icon="@drawable/side_nav_bar"
-            android:title="tester"
+            android:title="Ontester"
             />
     </group>
 </menu>
