@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 
 // a lot of display shit uuuuuuggghh
 //also need  to have the the uuuh thing the drop down thing but from the side AAAAAAAA
+//it's called a content drawer
 class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
