@@ -1,5 +1,6 @@
 package com.jacob.budgetbowl
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -51,6 +52,7 @@ lateinit var authenticator: FirebaseAuth
         // later is now :{
 
         btnLogin = findViewById(R.id.btnLogin)//misspelled btn ..... dammit
+        btnRedirect= findViewById(R.id.btnBack)
         etUserEmail = findViewById(R.id.etUsername)
         etPassword = findViewById(R.id.etUserPassword)
 
@@ -61,23 +63,38 @@ lateinit var authenticator: FirebaseAuth
         btnLogin.setOnClickListener {
         login()
         }
+
+        btnRedirect.setOnClickListener {
+            intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
         //after we click the button call our login method
     }
 
     //method to redirect to sign up screen
+    //rather just back out to main
 
 
 
     private fun login(){
+
+        if(etUserEmail.text.isBlank()||etPassword.text.isBlank())
+        {
+            Toast.makeText(this,"All fields need to be filled in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val UsereEmail = etUserEmail.text.toString()
         val UserPassword = etPassword.text.toString()
 
         authenticator.signInWithEmailAndPassword(UsereEmail,UserPassword).addOnCompleteListener(this){
         if(it.isSuccessful) {
             Toast.makeText(this,"Logged in", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
         }
             else{
-            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Log in Failed", Toast.LENGTH_SHORT).show()
         } }
 
         //call signin method on the authenticator and when it's done check if it's true or false

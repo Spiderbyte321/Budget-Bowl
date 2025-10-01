@@ -12,10 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BudgetBowl">
         <activity
-            android:name=".AddExpenseActivity"
-            android:exported="false" />
-        <activity
             android:name=".DashboardActivity"
+            android:exported="false"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/Theme.BudgetBowl.NoActionBar" />
+        <activity
+            android:name=".AddExpenseActivity"
             android:exported="false" />
         <activity
             android:name=".SetInitialBudgetActivity"

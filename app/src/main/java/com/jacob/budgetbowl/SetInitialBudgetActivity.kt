@@ -6,10 +6,14 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 //Reference Module Manual
@@ -88,8 +92,8 @@ class SetInitialBudgetActivity : AppCompatActivity() {
 
         confirmButton.setOnClickListener {
             AddUserToDatabse()
-            //val intent =Intent(this,)
-            //open dashboard
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
         }
         cancelButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -120,10 +124,14 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         //since we ensure the user fills in their details we can comfortably assume
         //that we don't need to feed default values or worry about null values
         val userData = UserData(UserName = userName!!, NameSurname = fullName!!, Password = passWord!!, MinBudget = minBudget, MaxBudget = maxBudget, TargetBudget = targetBudget)
-        userDAO.insertUser(userData)
 
+        Toast.makeText(this,"Created UserData", Toast.LENGTH_SHORT).show()
+
+        CoroutineScope(Dispatchers.IO).launch {userDAO.insertUser(userData)}
 
     }
 
     //Now i need to do the rest uuuuuuuggghhhh
+    //somethings up with the insert
+    //ok so we need to use a coroutine whenver we access the roomDB
 }
