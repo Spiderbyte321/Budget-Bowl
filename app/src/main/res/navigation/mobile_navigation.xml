@@ -29,4 +29,13 @@
         android:label="testlabel"
         tools:layout="@layout/fragment_test_"
         />
+
+    <activity
+        android:id="@+id/ExpenseEntryActivity"
+        android:name="com.jacob.budgetbowl.AddExpenseActivity"
+        android:label="@string/add_expense_activity"
+        tools:layout="@layout/activity_add_expense"
+
+        />
+
 </navigation>

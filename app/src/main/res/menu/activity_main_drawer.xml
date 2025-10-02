@@ -21,5 +21,10 @@
             android:icon="@drawable/side_nav_bar"
             android:title="Ontester"
             />
+        <item
+            android:id="@+id/ExpenseEntryActivity"
+            android:icon="@drawable/common_google_signin_btn_icon_dark"
+            android:title="@string/add_expense_activity"
+            />
     </group>
 </menu>
