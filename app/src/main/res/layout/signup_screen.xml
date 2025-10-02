@@ -8,17 +8,16 @@
 
     <TextView
         android:id="@+id/txtRegisterheading"
-        android:layout_width="134dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="516dp"
+        android:layout_width="138dp"
+        android:layout_height="48dp"
         android:text="Register"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgTopDecor"
-        app:layout_constraintVertical_bias="0.027" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.251" />
 
     <ImageView
         android:id="@+id/imgTopDecor2"
@@ -83,7 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etUserEmailInput"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/etUserPasswordInput"
@@ -97,7 +96,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgTopDecor2"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintVertical_bias="0.61" />
 
     <Button
         android:id="@+id/RedirectBTN"
