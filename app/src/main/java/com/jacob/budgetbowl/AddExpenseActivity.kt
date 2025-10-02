@@ -1,11 +1,16 @@
 package com.jacob.budgetbowl
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -40,6 +45,8 @@ class AddExpenseActivity : AppCompatActivity() {
 
     private lateinit var expenseDAO: ExpenseDAO
 
+    private var optionalImage: Bitmap? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,14 +67,35 @@ class AddExpenseActivity : AppCompatActivity() {
         btnConfrim = findViewById(R.id.btnAddEntry)
         btnAddImage = findViewById(R.id.btnAddImage)
 
+
         //get Database and DAO
         roomDB = AppDatabase.getDatabase(this) as AppDatabase
         expenseDAO = roomDB.expenseDAO()
 
+        //get camera perms and take the photo back from the camera and assign to variable
+
+        val cameraProviderResult = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK && it.data != null) {
+                var bitmap = it.data!!.extras?.get("data") as Bitmap
+                optionalImage=bitmap
+            }
+        }
+
+
+
+        btnAddImage.setOnClickListener() {
+            var intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            cameraProviderResult.launch(intent)
+        }
+
+
+
 
         btnConfrim.setOnClickListener {
             addExpenseEntry()
-            //start next activity
+            Toast.makeText(this,"Successfully added expense", Toast.LENGTH_SHORT).show()
         }
 
 
@@ -87,16 +115,18 @@ class AddExpenseActivity : AppCompatActivity() {
         }
 
         val amountSpent = etAmountSpentInput.text.toString().toInt()
-        val dateAddedString = etDateInput.text.toString()
+        val dateAdded = etDateInput.text.toString()
         val description = etDescriptionInput.text.toString()
 
 
         val expenseData = ExpenseEntry(
             ExpenseAmount = amountSpent,
-            ExpenseDate = dateAddedString,
-            CatId = ECategory.Groceries,
-            ExpesnseDescription = description
+            ExpenseDate = dateAdded,
+            CatId =  spCategoriesInput.selectedItem as ECategory,
+            ExpesnseDescription = description,
+            AddedImage = optionalImage
         )
+
 
         CoroutineScope(Dispatchers.IO).launch {expenseDAO.insertExpense(expenseData)}
 

@@ -1,9 +1,9 @@
 package com.jacob.budgetbowl
 
 
+import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Date
 
 @Entity(tableName = "Expense")
 data class ExpenseEntry(
@@ -11,5 +11,6 @@ data class ExpenseEntry(
     var ExpenseAmount : Int,
     var ExpenseDate : String,
     var CatId : ECategory,
-    var ExpesnseDescription : String
+    var ExpesnseDescription : String,
+    var AddedImage : Bitmap? = null
 )
