@@ -88,14 +88,12 @@ class AddExpenseActivity : AppCompatActivity() {
 
         val amountSpent = etAmountSpentInput.text.toString().toInt()
         val dateAddedString = etDateInput.text.toString()
-        val dateFormat = SimpleDateFormat("dd/mm/yyyy", Locale.getDefault())
-        val dateObject =dateFormat.parse(dateAddedString)
         val description = etDescriptionInput.text.toString()
 
 
         val expenseData = ExpenseEntry(
             ExpenseAmount = amountSpent,
-            ExpenseDate = dateObject!!,
+            ExpenseDate = dateAddedString,
             CatId = ECategory.Groceries,
             ExpesnseDescription = description
         )
