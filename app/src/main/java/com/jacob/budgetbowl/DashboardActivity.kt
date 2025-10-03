@@ -46,7 +46,7 @@ class DashboardActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.tester
+                R.id.nav_home
             ), drawerLayout
         )
         //ok so I think we add to the content drawer witht eh appbarconfiguration
