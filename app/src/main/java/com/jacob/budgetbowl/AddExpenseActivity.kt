@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
@@ -24,6 +25,7 @@ import java.util.Locale
 
 
 //Ref module manual for coroutine
+//Same reference for the spinner population
 
 class AddExpenseActivity : AppCompatActivity() {
     //get references to all our stuff
@@ -46,6 +48,9 @@ class AddExpenseActivity : AppCompatActivity() {
     private lateinit var expenseDAO: ExpenseDAO
 
     private var optionalImage: Bitmap? = null
+
+    private lateinit var spinnerAdapter: ArrayAdapter<ECategory>
+
 
 
 
@@ -82,6 +87,16 @@ class AddExpenseActivity : AppCompatActivity() {
                 optionalImage=bitmap
             }
         }
+
+        //ad all our elements to our spinner
+        spinnerAdapter = ArrayAdapter<ECategory>(
+            this,
+            android.R.layout.simple_spinner_item,
+            ECategory.entries
+        )
+
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spCategoriesInput.adapter = spinnerAdapter
 
 
 
@@ -127,9 +142,6 @@ class AddExpenseActivity : AppCompatActivity() {
             AddedImage = optionalImage
         )
 
-
         CoroutineScope(Dispatchers.IO).launch {expenseDAO.insertExpense(expenseData)}
-
-
     }
 }
