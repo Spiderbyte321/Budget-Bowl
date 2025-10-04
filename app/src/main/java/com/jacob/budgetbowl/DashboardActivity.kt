@@ -30,14 +30,11 @@ class DashboardActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarDashboard.toolbar)
 
-        binding.appBarDashboard.fab.setOnClickListener {
-            intent = Intent(this, AddExpenseActivity::class.java)
-            startActivity(intent)
-        }
         //We do actually need the FAB so I'll set that up to add an expese
         //uuuuuuuggghhh
         //figure out how to add to content drawer then take a breather
         //ok so the snackbar is a fancy toast so I can just cut all that and have the FAB open up the activity
+        // fab needs to be on fragment not globally
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -64,6 +61,10 @@ class DashboardActivity : AppCompatActivity() {
         //wait this method is considering these from a menu perspective but I wonder if it will open an activity
         //I might have to rework this a little to have it open our activities
         //Well that's what testing is for
+        //ok no well yes but no
+        //We can use the nav drawer with activities but it's not a good idea
+        //better to use fragments rather than a new activity
+        //thankfully fragments aren't that complicated
 
 
         setupActionBarWithNavController(navController, appBarConfiguration)

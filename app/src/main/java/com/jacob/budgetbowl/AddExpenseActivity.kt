@@ -124,9 +124,10 @@ class AddExpenseActivity : AppCompatActivity() {
         // figure out how to optionally add a picture to the expense
 
 
-        if(etAmountSpentInput.text.isBlank())//validate rest of fields
+        if(etAmountSpentInput.text.isBlank()||etDateInput.text.isBlank()||etDescriptionInput.text.isBlank())//validate rest of fields
         {
             Toast.makeText(this,"all fields need to be filled", Toast.LENGTH_SHORT).show()
+            return
         }
 
         val amountSpent = etAmountSpentInput.text.toString().toInt()
