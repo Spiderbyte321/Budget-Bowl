@@ -11,6 +11,13 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
+    <fragment
+        android:id="@+id/ExpenseReview"
+        android:name="com.jacob.budgetbowl.ui.ExpenseReview.ExpenseReviewFragment"
+        android:label="@string/Review_Expense_Fragment"
+        tools:layout="@layout/fragment_expense_review"
+        />
+
 
 
 </navigation>

@@ -6,6 +6,7 @@
     tools:context=".ui.ExpenseReview.ExpenseReviewFragment" >
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

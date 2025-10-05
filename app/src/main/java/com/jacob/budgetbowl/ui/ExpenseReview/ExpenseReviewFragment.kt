@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import com.jacob.budgetbowl.CustomRecyclerAdapter
+import com.jacob.budgetbowl.ExpenseEntry
 import com.jacob.budgetbowl.R
+import com.jacob.budgetbowl.databinding.FragmentExpenseReviewBinding
+import com.jacob.budgetbowl.databinding.FragmentHomeBinding
 
 
 //https://developer.android.com/develop/ui/views/layout/recyclerview
@@ -18,8 +23,10 @@ import com.jacob.budgetbowl.R
 //step 2 assign them to their variables and make them observe the relevant data in the view
 //step 3 make the buttons filter the expenses by the date
 //many more steps to come but let's start here
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
+//The binding let's us access everything on the XML without constantly searching
+//Through the binding make the recycler listen to the data
+//
 
 /**
  * A simple [Fragment] subclass.
@@ -27,42 +34,41 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ExpenseReviewFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var binding: FragmentExpenseReviewBinding? =null
+
+    private val Binding get() = binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_expense_review, container, false)
+
+        //This connects us to our view
+        val ExpenseReviewFragmentView = ViewModelProvider(this)[ExpenseView::class]
+        //This connects us to our xml File
+        binding = FragmentExpenseReviewBinding.inflate(inflater, container, false)
+
+        val emptyList: List<ExpenseEntry> = emptyList<ExpenseEntry>()
+        val newAdapter: CustomRecyclerAdapter = CustomRecyclerAdapter(emptyList)
+        //YES OK I GOT IT!
+        ExpenseReviewFragmentView.UserExpenses.observe(viewLifecycleOwner){
+            UserExpenses-> ExpenseReviewFragmentView.UserExpenses
+            newAdapter.updateAdpater(UserExpenses)
+        }
+        //FINALLY OK
+        //I understand how this works now but it still doesn't make me like android studio
+
+        val root: View = Binding.root
+
+        // returns the layout for this fragment with everything we added
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ExpenseReviewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ExpenseReviewFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
+
 }

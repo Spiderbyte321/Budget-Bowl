@@ -12,6 +12,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="add_expense_activity">Add Expense</string>
+    <string name="Review_Expense_Fragment">Expense Review</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
