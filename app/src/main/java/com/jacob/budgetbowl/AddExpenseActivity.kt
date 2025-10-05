@@ -144,5 +144,9 @@ class AddExpenseActivity : AppCompatActivity() {
         )
 
         CoroutineScope(Dispatchers.IO).launch {expenseDAO.insertExpense(expenseData)}
+
+        //move this toa back button later but works for now
+        val intent =Intent(this, DashboardActivity::class.java)
+        startActivity(intent)
     }
 }
