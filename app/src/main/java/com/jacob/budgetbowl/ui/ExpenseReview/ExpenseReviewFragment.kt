@@ -10,7 +10,9 @@ import android.widget.Adapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.util.recursiveFetchHashMap
 import com.jacob.budgetbowl.CustomRecyclerAdapter
+import com.jacob.budgetbowl.ECategory
 import com.jacob.budgetbowl.ExpenseEntry
 import com.jacob.budgetbowl.R
 import com.jacob.budgetbowl.databinding.FragmentExpenseReviewBinding
@@ -73,7 +75,8 @@ class ExpenseReviewFragment : Fragment() {
         //I understand how this works now but it still doesn't make me like android studio
 
         val emptyList: List<ExpenseEntry> = mutableListOf()
-        val newAdapter: CustomRecyclerAdapter = CustomRecyclerAdapter(emptyList)
+        var newAdapter: CustomRecyclerAdapter = CustomRecyclerAdapter(emptyList)
+
 
         val recycler : RecyclerView = Binding.Recycler
 
@@ -82,9 +85,17 @@ class ExpenseReviewFragment : Fragment() {
         //YES OK I GOT IT!
         //Ok I really am not liking android now
         ViewBinding.UserExpenses.observe(viewLifecycleOwner){
-                UserExpenses-> ViewBinding.UserExpenses
-            newAdapter.updateAdpater(UserExpenses)
+                UserExpenses->
+            if(newAdapter.itemCount==0){
+                newAdapter = CustomRecyclerAdapter(UserExpenses)
+                recycler.adapter = newAdapter
+            }
+            else{
+                newAdapter.updateAdpater(UserExpenses)
+            }
+
         }
+        //I'm gonna crashout
     }
 
 
