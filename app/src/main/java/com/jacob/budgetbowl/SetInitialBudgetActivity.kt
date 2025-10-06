@@ -127,16 +127,12 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {userDAO.insertUser(userData)}
 
     }
-<<<<<<< HEAD
-<<<<<<< Updated upstream
+
 
     //Now i need to do the rest uuuuuuuggghhhh
     //somethings up with the insert
     //ok so we need to use a coroutine whenver we access the roomDB
-=======
+
     //References
     ////Android Open Source Project. 10 February 2025.Add spinners to your app .[Online] Avaliable at: https://developer.android.com/develop/ui/views/components/spinner [ Accessed on: 2 October 2025]
->>>>>>> Stashed changes
-=======
->>>>>>> parent of c06fd24 (Revert "In texted and comment cleanup")
 }
