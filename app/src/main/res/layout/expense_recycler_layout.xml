@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <ImageView
@@ -12,23 +12,45 @@
         android:layout_height="108dp"
         android:layout_marginBottom="623dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/testerText"
+        app:layout_constraintEnd_toStartOf="@+id/expenseDesc"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.409" />
 
     <TextView
-        android:id="@+id/testerText"
-        android:layout_width="410dp"
-        android:layout_height="108dp"
+        android:id="@+id/expenseDate"
+        android:layout_width="150dp"
+        android:layout_height="33dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="6dp"
+        android:text="Date"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/expenseDesc"
+        app:layout_constraintEnd_toStartOf="@+id/expenseAmt" />
+
+    <TextView
+        android:id="@+id/expenseAmt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="amount"
+        android:textSize="34sp"
+        app:layout_constraintStart_toEndOf="@+id/expenseDesc"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/expenseDesc"
+        android:layout_width="228dp"
+        android:layout_height="53dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="623dp"
         android:text="testerText"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.258"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />

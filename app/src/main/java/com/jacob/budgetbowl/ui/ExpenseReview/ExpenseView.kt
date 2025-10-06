@@ -30,9 +30,11 @@ class ExpenseView(application: Application): AndroidViewModel(application) {
     // and serve it to the recycler to display is this the correct approach to take?
 
     private val db = AppDatabase.getDatabase(application.applicationContext) as AppDatabase
-    private val ExpenseDAO = db.expenseDAO()
+     val ExpenseDAO = db.expenseDAO()
 
     val UserExpenses: LiveData<List<ExpenseEntry>> = ExpenseDAO.getAllExpenses()//chat
+
+    var ListExpense: List<ExpenseEntry> = mutableListOf()
 
 
 

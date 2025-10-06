@@ -7,16 +7,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.util.recursiveFetchHashMap
 import com.jacob.budgetbowl.CustomRecyclerAdapter
 import com.jacob.budgetbowl.ECategory
+import com.jacob.budgetbowl.ExpenseDAO
 import com.jacob.budgetbowl.ExpenseEntry
 import com.jacob.budgetbowl.R
 import com.jacob.budgetbowl.databinding.FragmentExpenseReviewBinding
 import com.jacob.budgetbowl.databinding.FragmentHomeBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeParseException
+import java.util.Date
+import java.util.Locale
+import java.util.logging.Filter
+import java.util.logging.SimpleFormatter
 
 
 //https://developer.android.com/develop/ui/views/layout/recyclerview
@@ -60,6 +73,11 @@ class ExpenseReviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+
+
+
+
         //This connects us to our view
          viewBinding = ViewModelProvider(this)[ExpenseView::class]
         //This connects us to our xml File
@@ -70,6 +88,18 @@ class ExpenseReviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
+
+        val adapter = ArrayAdapter<ECategory>(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            ECategory.entries
+        )
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        Binding.spCategory.adapter = adapter
+
+        CoroutineScope(Dispatchers.IO).launch { ViewBinding.ListExpense = ViewBinding.ExpenseDAO.getAllExpensesASList() }
 
         //FINALLY OK
         //I understand how this works now but it still doesn't make me like android studio
@@ -89,15 +119,80 @@ class ExpenseReviewFragment : Fragment() {
         ViewBinding.UserExpenses.observe(viewLifecycleOwner){
                 UserExpenses->
             if(newAdapter.itemCount==0){
+                Log.d("DEBUG","adding new data")
                 newAdapter = CustomRecyclerAdapter(UserExpenses,this)
                 recycler.adapter = newAdapter
             }
             else{
+                Log.d("DEBUG","Updating list")
                 newAdapter.updateAdpater(UserExpenses)
             }
 
         }
         //I'm gonna crashout
+
+
+        Binding.filterBTN.setOnClickListener {
+            val FilteredList: MutableList<ExpenseEntry> = mutableListOf()
+            var totalSpent: Int = 0
+
+            val dateFormatter = SimpleDateFormat("dd-mm-yyyy", Locale.getDefault())
+            val startDate = Binding.startDatee.text.toString()
+            val endDate = Binding.endDate.text.toString()
+
+
+
+            var startObject: Date? = Date()
+            var endObject: Date? = Date()
+
+            try {
+
+                 startObject =dateFormatter.parse(startDate)
+                 endObject = dateFormatter.parse(endDate)
+
+
+            }catch (e: ParseException)
+            {
+                Toast.makeText(context,"Date formatted incorrectly must be : dd-mm-yyyy",Toast.LENGTH_SHORT).show()
+            }
+
+
+
+            viewBinding?.ListExpense?.forEach TheLoop@{
+
+
+                val ExpenseDateObject:Date?
+                try {
+                     ExpenseDateObject = dateFormatter.parse(it.ExpenseDate)
+                }catch (e: ParseException)
+                {
+                    return@TheLoop
+                }
+
+                if(ExpenseDateObject?.compareTo(startObject)==1&&ExpenseDateObject.compareTo(endObject)==-1&& it.CatId==Binding.spCategory.selectedItem)
+                {
+                    FilteredList.add(it)
+                }
+
+                if(FilteredList.count()==0)
+                {
+                    Toast.makeText(context,"No items found widen date range", Toast.LENGTH_SHORT).show()
+                }
+
+                newAdapter.updateAdpater(FilteredList)
+            }
+
+
+            FilteredList.forEach {
+
+                totalSpent+=it.ExpenseAmount
+            }
+
+            Binding.Spent.text = "Total Spent: "+ totalSpent
+
+        }
+
+
     }
 
 

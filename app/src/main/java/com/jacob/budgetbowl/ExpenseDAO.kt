@@ -14,6 +14,9 @@ interface ExpenseDAO {
     @Query("SELECT * FROM EXPENSE")
     fun getAllExpenses(): LiveData<List<ExpenseEntry>>
 
+    @Query("SELECT * FROM EXPENSE")
+    fun getAllExpensesASList(): List<ExpenseEntry>
+
 
 
 

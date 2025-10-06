@@ -8,10 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jacob.budgetbowl.ui.PopUpFragments.ImagePopUpFragment
-import kotlinx.coroutines.withContext
 
 //Implement the rest of the methods just test with filling out edit texts on one recycler view then once that works try the nested stuff
 //https://developer.android.com/develop/ui/views/layout/recyclerview
@@ -51,9 +49,11 @@ class CustomRecyclerAdapter(var dataset: List<ExpenseEntry>,val fragment: Fragme
                 return@setOnClickListener
             }
             val PopUpFragment = ImagePopUpFragment(dataset[position].AddedImage!!)
-            PopUpFragment.show(fragment.childFragmentManager,"Popup")
+            PopUpFragment.show(fragment.parentFragmentManager,"Popup")
         }
-        holder.textView.text = dataset[position].ExpenseDate
+        holder.expenseDate.text = dataset[position].ExpenseDate
+        holder.expenseAmount.text = "Amount: "+dataset[position].ExpenseAmount.toString()
+        holder.expenseDescription.text = dataset[position].ExpesnseDescription
     }
 
     //This tells the recycler how many items we have
@@ -63,6 +63,7 @@ class CustomRecyclerAdapter(var dataset: List<ExpenseEntry>,val fragment: Fragme
 
     fun updateAdpater(newExpenseList: List<ExpenseEntry>)
     {
+        Log.d("DEBUG","${newExpenseList.count()}")
         dataset = newExpenseList
         notifyDataSetChanged()
     }
@@ -70,7 +71,12 @@ class CustomRecyclerAdapter(var dataset: List<ExpenseEntry>,val fragment: Fragme
     //we make a private class to make it easy to access the variables in the layout
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
 
-        val textView: TextView = view.findViewById(R.id.testerText)?:throw IllegalStateException("Text is null")
+        val expenseAmount : TextView = view.findViewById(R.id.expenseAmt)?: throw IllegalStateException("no text view")
+
+
+        val expenseDate : TextView = view.findViewById(R.id.expenseDate)?: throw IllegalStateException("Text view not found")
+
+        val expenseDescription: TextView = view.findViewById(R.id.expenseDesc)?:throw IllegalStateException("Text is null")
         val image: ImageView = view.findViewById(R.id.background)?:throw IllegalStateException("No background Image")
     }
 
