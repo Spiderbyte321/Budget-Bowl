@@ -24,10 +24,8 @@ import java.util.Date
 import java.util.Locale
 
 
-////https://developer.android.com/topic/libraries/architecture/coroutines
-//For the coroutine
+//Ref module manual for coroutine
 //Same reference for the spinner population
-//Reference Module Manual for camera perms
 
 class AddExpenseActivity : AppCompatActivity() {
     //get references to all our stuff
@@ -88,17 +86,17 @@ class AddExpenseActivity : AppCompatActivity() {
                 var bitmap = it.data!!.extras?.get("data") as Bitmap
                 optionalImage=bitmap
             }
-        }//(Moodley,2025)
+        }
 
         //ad all our elements to our spinner
         spinnerAdapter = ArrayAdapter<ECategory>(
             this,
             android.R.layout.simple_spinner_item,
             ECategory.entries
-        )//(Google,S.A)
+        )
 
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)//(Google,S.A)
-        spCategoriesInput.adapter = spinnerAdapter//(Google,S.A)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spCategoriesInput.adapter = spinnerAdapter
 
 
 
@@ -145,7 +143,7 @@ class AddExpenseActivity : AppCompatActivity() {
             AddedImage = optionalImage
         )
 
-        CoroutineScope(Dispatchers.IO).launch {expenseDAO.insertExpense(expenseData)}//(Google,S.A)
+        CoroutineScope(Dispatchers.IO).launch {expenseDAO.insertExpense(expenseData)}
 
         //move this toa back button later but works for now
         val intent =Intent(this, DashboardActivity::class.java)

@@ -16,6 +16,9 @@ import com.jacob.budgetbowl.SignUpActivity
 import com.jacob.budgetbowl.LoginActivity
 
 class MainActivity : AppCompatActivity() {
+    //Just the opening screen logic so pay attention to miro for all activities
+    //find out how to use room DB
+    //cool I know how to use room and it sucks or maybe just SQL sucks either way I hate it
     //two buttons that load the required screens: login/sign up
 
 

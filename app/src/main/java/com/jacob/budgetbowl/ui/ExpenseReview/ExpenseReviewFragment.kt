@@ -34,12 +34,18 @@ import java.util.logging.SimpleFormatter
 
 //https://developer.android.com/develop/ui/views/layout/recyclerview
 //Recycler view reference
-//Google is android developers
-//Module Manual also referenced
-//Which we reference as Rochelle I think?
+//Maybe reference chat? I just used it to understand what I want to do so I actually don't know
 
-//https://developer.android.com/topic/libraries/architecture/coroutines
-//Getting the user data in the view
+
+//And In here is where I get the references to the layout stuff and assign that data
+//step 1 get a reference to all our components
+//step 2 assign them to their variables and make them observe the relevant data in the view
+//step 3 make the buttons filter the expenses by the date
+//many more steps to come but let's start here
+
+//The binding let's us access everything on the XML without constantly searching
+//Through the binding make the recycler listen to the data
+//
 
 /**
  * A simple [Fragment] subclass.
@@ -94,7 +100,6 @@ class ExpenseReviewFragment : Fragment() {
         Binding.spCategory.adapter = adapter
 
         CoroutineScope(Dispatchers.IO).launch { ViewBinding.ListExpense = ViewBinding.ExpenseDAO.getAllExpensesASList() }
-        //(Google,S.A)
 
         //FINALLY OK
         //I understand how this works now but it still doesn't make me like android studio
@@ -107,13 +112,24 @@ class ExpenseReviewFragment : Fragment() {
 
 
         recycler.layoutManager = LinearLayoutManager(context)
-        recycler.adapter = newAdapter//(Google,S.A)
+        recycler.adapter = newAdapter
 
         //YES OK I GOT IT!
+        //Ok I really am not liking android now
         ViewBinding.UserExpenses.observe(viewLifecycleOwner){
-                UserExpenses-> newAdapter = CustomRecyclerAdapter(UserExpenses,this)
+                UserExpenses->
+            if(newAdapter.itemCount==0){
+                Log.d("DEBUG","adding new data")
+                newAdapter = CustomRecyclerAdapter(UserExpenses,this)
                 recycler.adapter = newAdapter
+            }
+            else{
+                Log.d("DEBUG","Updating list")
+                newAdapter.updateAdpater(UserExpenses)
+            }
+
         }
+        //I'm gonna crashout
 
 
         Binding.filterBTN.setOnClickListener {
@@ -170,7 +186,7 @@ class ExpenseReviewFragment : Fragment() {
             FilteredList.forEach {
 
                 totalSpent+=it.ExpenseAmount
-            }//(Rochelle,2025)
+            }
 
             Binding.Spent.text = "Total Spent: "+ totalSpent
 
