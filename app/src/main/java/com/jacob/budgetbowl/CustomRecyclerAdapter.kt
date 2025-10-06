@@ -16,7 +16,7 @@ import com.jacob.budgetbowl.ui.PopUpFragments.ImagePopUpFragment
 //for the whole class
 // Ok I do like being able to declare fields in the constructor rather than having to declare them in the class
 class CustomRecyclerAdapter(var dataset: List<ExpenseEntry>,val fragment: Fragment):
-    RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>() {
+    RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>() {//(Google,S.A)
 
 
 

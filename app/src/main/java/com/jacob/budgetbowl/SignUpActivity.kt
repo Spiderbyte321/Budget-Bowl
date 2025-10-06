@@ -13,8 +13,8 @@ import com.google.android.material.textview.MaterialTextView
 import com.google.firebase.auth.FirebaseAuth
 
 
-
-//Reference Rochelles stuff for firebase stuff
+//https://github.com/rochelle13/RochRun
+//Firebase Authentication
 class SignUpActivity: AppCompatActivity() {
 
 
@@ -59,7 +59,7 @@ class SignUpActivity: AppCompatActivity() {
         etInputConfirmUserPassword = findViewById(R.id.etConfirmUserPasswordInput)
         btnSignUp= findViewById(R.id.ConfirmSignUpBTN)
         btnLoginRedirect= findViewById(R.id.RedirectBTN)
-        Authenticator = FirebaseAuth.getInstance()
+        Authenticator = FirebaseAuth.getInstance()//(Moodley,2025)
 
         btnLoginRedirect.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -97,9 +97,6 @@ class SignUpActivity: AppCompatActivity() {
         }
 
         //Now we sign up since we validated
-
-        //for now we switch back to login screen later we'll go straight to the home menu
-        //maybe instead of oncomplete use of success and on failure?
         //Add the user info we want to push to the database
         val intent = Intent(this, SetInitialBudgetActivity::class.java)
         intent.putExtra("FullName",etInputFullname.text.toString())

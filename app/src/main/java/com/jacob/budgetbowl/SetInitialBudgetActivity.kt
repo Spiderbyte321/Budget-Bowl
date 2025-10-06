@@ -80,10 +80,10 @@ class SetInitialBudgetActivity : AppCompatActivity() {
             this,
             android.R.layout.simple_spinner_item,
             ECategory.entries
-        )
+        )//(Google,S.A)
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        categorySpinner.adapter = adapter
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)//(Google,S.A)
+        categorySpinner.adapter = adapter//(Google,S.A)
 
         //set up category stuff
         //add all our enums to the spinner
@@ -127,6 +127,7 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {userDAO.insertUser(userData)}
 
     }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
     //Now i need to do the rest uuuuuuuggghhhh
@@ -136,4 +137,6 @@ class SetInitialBudgetActivity : AppCompatActivity() {
     //References
     ////Android Open Source Project. 10 February 2025.Add spinners to your app .[Online] Avaliable at: https://developer.android.com/develop/ui/views/components/spinner [ Accessed on: 2 October 2025]
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of c06fd24 (Revert "In texted and comment cleanup")
 }
