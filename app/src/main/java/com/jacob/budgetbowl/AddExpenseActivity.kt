@@ -139,6 +139,20 @@ class AddExpenseActivity : AppCompatActivity() {
         val dateAdded = etDateInput.text.toString()
         val description = etDescriptionInput.text.toString()
 
+        val dateFormatter = SimpleDateFormat("dd-mm-yyyy", Locale.getDefault())
+
+
+        try {
+
+            val startObject =dateFormatter.parse(dateAdded)
+
+
+        }catch (e: ParseException)
+        {
+            Toast.makeText(this,"Date formatted incorrectly must be : dd-mm-yyyy",Toast.LENGTH_SHORT).show()
+            return
+        }
+
 
         val expenseData = ExpenseEntry(
             ExpenseAmount = amountSpent,
@@ -156,4 +170,8 @@ class AddExpenseActivity : AppCompatActivity() {
 
         startActivity(intent)
     }
+
+    /// References:
+    // Android Open Source Project. 10 February 2025.Use Kotlin coroutines with lifecycle-aware components.[Online] Avaliable at: https://developer.android.com/topic/libraries/architecture/coroutines [Accessed on: 1 October 2025]
+    //// The Independent Institute of Education. 2025. Open Source Coding Module Manuel  [OPSC 7311]. nt. [online via internal VLE] The Independent Institute of Education. Available at: https://advtechonline.sharepoint.com/:w:/r/sites/TertiaryStudents/_layouts/15/Doc.aspx?sourcedoc=%7BD5C243B5-895D-4B63-B083-140930EF9734%7D&file=OPSC7311MM.docx&action=default&mobileredirect=true [Accessed on: 30 September 2025].
 }

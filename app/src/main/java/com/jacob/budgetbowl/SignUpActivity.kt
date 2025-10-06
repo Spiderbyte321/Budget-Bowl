@@ -119,4 +119,9 @@ class SignUpActivity: AppCompatActivity() {
                 }
             }
     }
+
+
+    //References
+    //Rochelle13. 2025. Roch Run. [Online] Accessed at: https://github.com/rochelle13/RochRun. [Accessed on: 28 September 2025]
+
 }

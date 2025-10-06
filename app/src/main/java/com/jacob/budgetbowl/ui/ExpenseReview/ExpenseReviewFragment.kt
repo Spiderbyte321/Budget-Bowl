@@ -211,4 +211,8 @@ class ExpenseReviewFragment : Fragment() {
         super.onDestroyView()
         binding = null
     }
+    //References
+    ////Android Open Source Project. 10 February 2025.Create dynamic lists with RecyclerView .[Online] Avaliable at:https://developer.android.com/develop/ui/views/layout/recyclerview [ Accessed on: 2 October 2025]
+    ////Android Open Source Project. 10 February 2025.Use Kotlin coroutines with lifecycle-aware components .[Online] Avaliable at:https://developer.android.com/topic/libraries/architecture/coroutines [ Accessed on: 2 October 2025]
+
 }

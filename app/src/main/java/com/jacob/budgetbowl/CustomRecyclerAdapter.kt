@@ -80,4 +80,8 @@ class CustomRecyclerAdapter(var dataset: List<ExpenseEntry>,val fragment: Fragme
         val image: ImageView = view.findViewById(R.id.background)?:throw IllegalStateException("No background Image")
     }
 
+    ///References
+    //Create dynamic lists with RecyclerView
+    //Android Open Source Project. 10 February 2025.Create dynamic lists with RecyclerView .[Online] Avaliable at://https://developer.android.com/develop/ui/views/layout/recyclerview [ Accessed on: 2 October 2025]
+
 }

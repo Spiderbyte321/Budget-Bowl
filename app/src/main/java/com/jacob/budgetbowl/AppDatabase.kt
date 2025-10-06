@@ -36,4 +36,9 @@ abstract class AppDatabase: RoomDatabase() {
 
         }
     }
+
+    ////References
+    // Android Open Source Project. 10 February 2025.Referencing complex data using Room.[Online] Avaliable at:https://developer.android.com/training/data-storage/room/referencing-data [ Accessed on: 26 September 2025]
+    //// The Independent Institute of Education. 2025. Open Source Coding Module Manuel  [OPSC 7311]. nt. [online via internal VLE] The Independent Institute of Education. Available at: https://advtechonline.sharepoint.com/:w:/r/sites/TertiaryStudents/_layouts/15/Doc.aspx?sourcedoc=%7BD5C243B5-895D-4B63-B083-140930EF9734%7D&file=OPSC7311MM.docx&action=default&mobileredirect=true [Accessed on: 30 September 2025].
+
 }
