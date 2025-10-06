@@ -75,11 +75,13 @@ class ExpenseReviewFragment : Fragment() {
         //I understand how this works now but it still doesn't make me like android studio
 
         val emptyList: List<ExpenseEntry> = mutableListOf()
-        var newAdapter: CustomRecyclerAdapter = CustomRecyclerAdapter(emptyList)
+        var newAdapter: CustomRecyclerAdapter = CustomRecyclerAdapter(emptyList,this)
 
 
         val recycler : RecyclerView = Binding.Recycler
 
+
+        recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = newAdapter
 
         //YES OK I GOT IT!
@@ -87,7 +89,7 @@ class ExpenseReviewFragment : Fragment() {
         ViewBinding.UserExpenses.observe(viewLifecycleOwner){
                 UserExpenses->
             if(newAdapter.itemCount==0){
-                newAdapter = CustomRecyclerAdapter(UserExpenses)
+                newAdapter = CustomRecyclerAdapter(UserExpenses,this)
                 recycler.adapter = newAdapter
             }
             else{
