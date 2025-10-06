@@ -71,6 +71,12 @@ class AddExpenseActivity : AppCompatActivity() {
         etDescriptionInput = findViewById(R.id.etDescription)
         btnConfrim = findViewById(R.id.btnAddEntry)
         btnAddImage = findViewById(R.id.btnAddImage)
+        val btnBack : Button = findViewById(R.id.backBtn)
+
+        btnBack.setOnClickListener {
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+        }
 
 
         //get Database and DAO
@@ -110,7 +116,6 @@ class AddExpenseActivity : AppCompatActivity() {
 
         btnConfrim.setOnClickListener {
             addExpenseEntry()
-            Toast.makeText(this,"Successfully added expense", Toast.LENGTH_SHORT).show()
         }
 
 
@@ -147,6 +152,8 @@ class AddExpenseActivity : AppCompatActivity() {
 
         //move this toa back button later but works for now
         val intent =Intent(this, DashboardActivity::class.java)
+        Toast.makeText(this,"Successfully added expense", Toast.LENGTH_SHORT).show()
+
         startActivity(intent)
     }
 }

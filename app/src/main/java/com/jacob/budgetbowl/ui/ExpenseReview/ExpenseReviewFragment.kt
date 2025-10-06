@@ -104,6 +104,15 @@ class ExpenseReviewFragment : Fragment() {
         //FINALLY OK
         //I understand how this works now but it still doesn't make me like android studio
 
+
+        var totalSpent: Int =0
+
+        ViewBinding.ListExpense.forEach {
+            totalSpent+=it.ExpenseAmount
+        }
+
+
+        Binding.Spent.text = totalSpent.toString()
         val emptyList: List<ExpenseEntry> = mutableListOf()
         var newAdapter: CustomRecyclerAdapter = CustomRecyclerAdapter(emptyList,this)
 
@@ -154,6 +163,7 @@ class ExpenseReviewFragment : Fragment() {
             }catch (e: ParseException)
             {
                 Toast.makeText(context,"Date formatted incorrectly must be : dd-mm-yyyy",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
 

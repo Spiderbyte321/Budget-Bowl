@@ -48,11 +48,15 @@
         android:id="@+id/etConfirmUserPasswordInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="39dp"
         android:ems="10"
         android:inputType="textPassword"
         android:text="Name"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="583dp" />
+        app:layout_constraintBottom_toTopOf="@+id/ConfirmSignUpBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtConfirmPasswordPrompt" />
 
     <TextView
         android:id="@+id/txtConfirmPasswordPrompt"

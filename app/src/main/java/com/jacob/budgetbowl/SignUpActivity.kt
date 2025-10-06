@@ -61,6 +61,11 @@ class SignUpActivity: AppCompatActivity() {
         btnLoginRedirect= findViewById(R.id.RedirectBTN)
         Authenticator = FirebaseAuth.getInstance()
 
+        btnLoginRedirect.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         btnSignUp.setOnClickListener{
             SignUp()
         }
