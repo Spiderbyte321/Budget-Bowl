@@ -80,10 +80,10 @@ class SetInitialBudgetActivity : AppCompatActivity() {
             this,
             android.R.layout.simple_spinner_item,
             ECategory.entries
-        )
+        )//(Google,S.A)
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        categorySpinner.adapter = adapter
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)//(Google,S.A)
+        categorySpinner.adapter = adapter//(Google,S.A)
 
         //set up category stuff
         //add all our enums to the spinner
@@ -127,8 +127,4 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {userDAO.insertUser(userData)}
 
     }
-
-    //Now i need to do the rest uuuuuuuggghhhh
-    //somethings up with the insert
-    //ok so we need to use a coroutine whenver we access the roomDB
 }

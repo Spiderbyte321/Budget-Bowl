@@ -11,11 +11,11 @@ import androidx.room.TypeConverters
 //https://developer.android.com/training/data-storage/room/referencing-data
 @Database(entities = [UserData::class, ExpenseEntry::class],version=1)
 @TypeConverters(Converters::class)
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase: RoomDatabase() {//(Google,S.A)
 
-    abstract fun userDAO(): UserDAO
+    abstract fun userDAO(): UserDAO//(Moodley,2025)
 
-    abstract fun expenseDAO(): ExpenseDAO
+    abstract fun expenseDAO(): ExpenseDAO//(Moodley,2025)
 
 
     companion object{

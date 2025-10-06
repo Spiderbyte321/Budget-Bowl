@@ -12,9 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity: AppCompatActivity() {
-// when button is pressed take in values and authenticate for now toast when failed
-
-
 
 private lateinit var btnRedirect: Button
 
@@ -26,12 +23,6 @@ lateinit var btnLogin: Button
 
 lateinit var authenticator: FirebaseAuth
 
-//we store the authenticator as an object so that we can easily acces it
-//I'm starting to dislike how android studio operates
-//for now do the basic login functionality we'll add anims and stuff later
-//ok the listener stuff is actually pretty cool maybe I like it a bit more
-//setup to make switching between firebase and room db better
-//nope just use firebase to login and room for the entries
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,20 +36,15 @@ lateinit var authenticator: FirebaseAuth
             insets
         }
 
-        //apply a new inset which used to control UI layout from the layout we open I think
 
-        //get the references to our components and assign them to our fields
-        //later
-        // later is now :{
-
-        btnLogin = findViewById(R.id.btnLogin)//misspelled btn ..... dammit
+        btnLogin = findViewById(R.id.btnLogin)
         btnRedirect= findViewById(R.id.btnBack)
         etUserEmail = findViewById(R.id.etUsername)
         etPassword = findViewById(R.id.etUserPassword)
 
 
 
-        authenticator = FirebaseAuth.getInstance()
+        authenticator = FirebaseAuth.getInstance()//(Moodley,2025)
 
         btnLogin.setOnClickListener {
         login()
@@ -70,11 +56,6 @@ lateinit var authenticator: FirebaseAuth
         }
         //after we click the button call our login method
     }
-
-    //method to redirect to sign up screen
-    //rather just back out to main
-
-
 
     private fun login(){
 

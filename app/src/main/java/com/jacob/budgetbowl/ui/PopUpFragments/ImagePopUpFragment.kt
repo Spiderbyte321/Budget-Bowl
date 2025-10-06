@@ -12,8 +12,8 @@ import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.jacob.budgetbowl.R
 
-
-class ImagePopUpFragment(val imageToShow: Bitmap) : DialogFragment() {
+//https://developer.android.com/develop/ui/views/components/dialogs
+class ImagePopUpFragment(val imageToShow: Bitmap) : DialogFragment() {//(Google,S.A)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
