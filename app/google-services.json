@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "738676640663",
+    "project_id": "budgetbowl-b2c9d",
+    "storage_bucket": "budgetbowl-b2c9d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738676640663:android:ecef9a180c174abc0d12d2",
+        "android_client_info": {
+          "package_name": "com.jacob.budgetbowl"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZV9wOMS-Fno8b4LQGq6wjhQvPYk1qZoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
