@@ -13,6 +13,11 @@ import com.jacob.budgetbowl.AddExpenseActivity
 import com.jacob.budgetbowl.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
+    //ok I need to setup a spinner to fetch a category
+    //That category must have total spent total budget
+    //use those values to populate the donut graph when a button is pressed
+    //I need to setup firebase then
+    //fuck
 
     private var _binding: FragmentHomeBinding? = null
 

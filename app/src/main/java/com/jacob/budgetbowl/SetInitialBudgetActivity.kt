@@ -29,6 +29,15 @@ class SetInitialBudgetActivity : AppCompatActivity() {
     //yea I hate working with android studio
     //Ok so now I get the db and add the user to it
 
+
+    //and now I get the fun part of ripping this apart to swtich this up and move it to Firebase
+    //yaaaaay
+    //ok spinner will be strings instead
+    //we will have a category table
+    //category will have
+    //String Name
+    //List of Expenses?
+
     private lateinit var roomDB: AppDatabase
     private lateinit var userDAO: UserDAO
 
