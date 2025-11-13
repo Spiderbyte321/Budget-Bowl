@@ -11,6 +11,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,12 +35,12 @@ class SetInitialBudgetActivity : AppCompatActivity() {
     //and now I get the fun part of ripping this apart to swtich this up and move it to Firebase
     //yaaaaay
     //ok spinner will be strings instead
-    //we will have a category table
-    //category will have
-    //String Name
-    //List of Expenses?
+    //Database setup User->Categories->Expenses->ID:[data]
+    //
+    //
+    //
 
-    private lateinit var roomDB: AppDatabase
+    private val db = FirebaseFirestore.getInstance()
     private lateinit var userDAO: UserDAO
 
     private lateinit var inputMinBudget: EditText
@@ -51,9 +53,11 @@ class SetInitialBudgetActivity : AppCompatActivity() {
 
     private lateinit var cancelButton: Button
 
+    private lateinit var setCategoryBudget: Button
+
     private lateinit var categorySpinner: Spinner
 
-    private lateinit var adapter: ArrayAdapter<ECategory>
+    private lateinit var adapter: ArrayAdapter<String>
 
 
 
@@ -75,20 +79,22 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         // and then cast it to our specific database
         //should get some food
 
-         roomDB = AppDatabase.getDatabase(this) as AppDatabase
-         userDAO = roomDB.userDAO()
+
 
         inputMinBudget = findViewById(R.id.minBudgetET)
         inputMaxBudget = findViewById(R.id.maxBudgetET)
         inputTargetBudget = findViewById(R.id.targerBudgetET)
         confirmButton = findViewById(R.id.confirmButton)
         cancelButton = findViewById(R.id.cancelButton)
+        setCategoryBudget = findViewById(R.id.btnAddCategory)
         categorySpinner= findViewById(R.id.spCategoryDropDown)
 
-        adapter = ArrayAdapter<ECategory>(
+        val defaultBudget = mutableListOf<String>("Home","Mortgage","Utilities")
+
+        adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            ECategory.entries
+            defaultBudget
         )//(Google,S.A)
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)//(Google,S.A)
@@ -108,8 +114,17 @@ class SetInitialBudgetActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        setCategoryBudget.setOnClickListener {
+            AddBudget()
+        }
 
 
+    }
+
+
+    private fun AddBudget()
+    {
+        //Add budget values to firebase with userId as key
     }
 
     //GOT IT!!!

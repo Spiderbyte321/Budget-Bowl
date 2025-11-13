@@ -63,7 +63,7 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0")
-
+    implementation("com.google.firebase:firebase-firestore:26.0.2")
 
 
 
