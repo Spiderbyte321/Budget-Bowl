@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <!--Outer Ring  -->
 
     <ProgressBar
         android:id="@+id/background_progressbar"
@@ -30,13 +31,22 @@
         android:layout_height="300dp"
         android:indeterminate="false"
         android:max="100"
-        android:progress="75"
+        android:progress="60"
         android:progressDrawable="@drawable/stats_progress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--Middle Ring-->
+
+
+
+
+    <!-- ProgressBar that represents a chart slice, where "android:progress" is the % value of the slice -->
+
 
     <!-- The text that goes in a center of the chart -->
     <TextView
@@ -69,4 +79,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.909" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

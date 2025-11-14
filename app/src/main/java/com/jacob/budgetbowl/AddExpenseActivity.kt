@@ -15,6 +15,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,6 +24,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.UUID
 
 
 ////https://developer.android.com/topic/libraries/architecture/coroutines
@@ -52,6 +55,10 @@ class AddExpenseActivity : AppCompatActivity() {
     private var optionalImage: Bitmap? = null
 
     private lateinit var spinnerAdapter: ArrayAdapter<ECategory>
+
+    private val db = FirebaseFirestore.getInstance()
+
+    private val userID = FirebaseAuth.getInstance().currentUser?.uid
 
 
 
@@ -156,15 +163,31 @@ class AddExpenseActivity : AppCompatActivity() {
         }
 
 
-        val expenseData = ExpenseEntry(
+        val expenseData = ExpenseObject(//before creating the object push it to the database and get the link to this object
             ExpenseAmount = amountSpent,
             ExpenseDate = dateAdded,
-            CatId =  spCategoriesInput.selectedItem as ECategory,
+            CatId = "Mortgage",
             ExpesnseDescription = description,
-            AddedImage = optionalImage
         )
 
-        CoroutineScope(Dispatchers.IO).launch {expenseDAO.insertExpense(expenseData)}//(Google,S.A)
+        val expenseMap = mutableMapOf<String, ExpenseObject>(
+            UUID.randomUUID().toString() to expenseData
+        )
+
+        userID?.let {
+            db.collection(userID).document(expenseData.CatId)
+                .collection("expenses").document(expenseData.ExpenseDate)
+                .set(expenseData)
+                .addOnSuccessListener {
+                    Toast.makeText(this,"Expense Added", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+       /* userID?.let {
+            db.collection(userID).document(expenseData.CatId)
+                .
+        }*/
+
 
         //move this toa back button later but works for now
         val intent =Intent(this, DashboardActivity::class.java)

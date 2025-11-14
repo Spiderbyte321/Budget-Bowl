@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,12 +36,14 @@ class SetInitialBudgetActivity : AppCompatActivity() {
     //and now I get the fun part of ripping this apart to swtich this up and move it to Firebase
     //yaaaaay
     //ok spinner will be strings instead
-    //Database setup User->Categories->Expenses->ID:[data]
+    //Database setup User->Categories->Expenses
     //
     //
     //
 
     private val db = FirebaseFirestore.getInstance()
+
+    private val userId = FirebaseAuth.getInstance().currentUser?.uid
     private lateinit var userDAO: UserDAO
 
     private lateinit var inputMinBudget: EditText
@@ -48,6 +51,8 @@ class SetInitialBudgetActivity : AppCompatActivity() {
     private lateinit var inputMaxBudget: EditText
 
     private lateinit var inputTargetBudget: EditText
+
+    private lateinit var inputCategoryBudget: EditText
 
     private lateinit var confirmButton: Button
 
@@ -88,6 +93,7 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         cancelButton = findViewById(R.id.cancelButton)
         setCategoryBudget = findViewById(R.id.btnAddCategory)
         categorySpinner= findViewById(R.id.spCategoryDropDown)
+        inputCategoryBudget = findViewById(R.id.etCategoryBudget)
 
         val defaultBudget = mutableListOf<String>("Home","Mortgage","Utilities")
 
@@ -106,7 +112,6 @@ class SetInitialBudgetActivity : AppCompatActivity() {
 
 
         confirmButton.setOnClickListener {
-            AddUserToDatabse()
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
@@ -117,18 +122,41 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         setCategoryBudget.setOnClickListener {
             AddBudget()
         }
-
-
     }
 
 
     private fun AddBudget()
     {
         //Add budget values to firebase with userId as key
+        val CategorybudgetUpdates = mutableMapOf<String, Any>(
+            "categorybudget" to inputCategoryBudget.text.toString()
+        )
+
+        val OveralBudgetUpdates = mutableMapOf<String,Any>(
+            "targetbudget" to inputTargetBudget.text.toString(),
+            "minbudget" to inputMinBudget.text.toString(),
+            "maxbudget" to inputMaxBudget.text.toString()
+
+        )
+
+        userId?.let {
+            db.collection(userId).document(categorySpinner.selectedItem.toString())
+                .set(CategorybudgetUpdates)
+                .addOnSuccessListener {
+                    Toast.makeText(this,"set budget", Toast.LENGTH_SHORT).show()
+                }
+
+            db.collection(userId).document("overallbudget")
+                .set(OveralBudgetUpdates)
+                .addOnSuccessListener {
+                    Toast.makeText(this,"set overall budget", Toast.LENGTH_SHORT).show()
+                }
+        }
+
     }
 
     //GOT IT!!!
-    private fun AddUserToDatabse()
+    /*private fun AddUserToDatabse()
     {
 
         //add value validation
@@ -150,7 +178,7 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         val userData = UserData(UserName = userName!!, NameSurname = fullName!!, Password = passWord!!, MinBudget = minBudget, MaxBudget = maxBudget, TargetBudget = targetBudget)
         CoroutineScope(Dispatchers.IO).launch {userDAO.insertUser(userData)}
 
-    }
+    }*/
 
 
     //Now i need to do the rest uuuuuuuggghhhh
