@@ -184,8 +184,13 @@ class AddExpenseActivity : AppCompatActivity() {
         }
 
        /* userID?.let {
-            db.collection(userID).document(expenseData.CatId)
-                .
+            db.collection(userID).document(expenseData.CatId).get().addOnSuccessListener {
+                results->
+                val  category: CategoryObject? = results.toObject(CategoryObject::class.java)
+
+
+
+            }
         }*/
 
 
