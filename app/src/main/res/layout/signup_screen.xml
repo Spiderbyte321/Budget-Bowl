@@ -1,188 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:id ="@+id/main">
+
+    <ImageView
+        android:id="@+id/imgTopDecor"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/topimagestretched" />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/backgroundBlue">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtRegisterheading"
-        android:layout_width="138dp"
-        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Register"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgTopDecor2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/imgTopDecor2"
-        android:layout_width="500dp"
-        android:layout_height="240dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@drawable/topimagestretched" />
-
-    <EditText
-        android:id="@+id/etUserEmailInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="@+id/RedirectBTN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgTopDecor2"
-        app:layout_constraintVertical_bias="0.474" />
-
-    <EditText
-        android:id="@+id/etConfirmUserPasswordInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="39dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/ConfirmSignUpBTN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtConfirmPasswordPrompt" />
-
-    <TextView
-        android:id="@+id/txtConfirmPasswordPrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confirm your password"
-        app:layout_constraintBottom_toTopOf="@+id/etConfirmUserPasswordInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserPasswordInput"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/txtPassWordPrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="8dp"
-        android:text="Enter your password"
-        app:layout_constraintBottom_toTopOf="@+id/etUserPasswordInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserEmailInput"
-        app:layout_constraintVertical_bias="0.75" />
-
-    <EditText
-        android:id="@+id/etUserPasswordInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="Name"
-        app:layout_constraintBottom_toBottomOf="@+id/RedirectBTN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgTopDecor2"
-        app:layout_constraintVertical_bias="0.646" />
-
-    <Button
-        android:id="@+id/RedirectBTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
-
-    <Button
-        android:id="@+id/ConfirmSignUpBTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Up"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/RedirectBTN"
-        app:layout_constraintHorizontal_bias="0.119"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
-
-    <EditText
-        android:id="@+id/etUserNameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/etUserEmailInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFullNameInput"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/etFullNameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRegisterheading"
-        app:layout_constraintVertical_bias="0.07" />
+        android:textSize="40sp"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="8dp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/txtFullnamePrompt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter your fullname"
-        app:layout_constraintBottom_toTopOf="@+id/etFullNameInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgTopDecor2"
-        app:layout_constraintVertical_bias="1.0" />
+        android:text="Enter your full name"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textSize="25dp"
+   />
 
-    <TextView
-        android:id="@+id/txtUserNamePrompt"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etFullNameInput"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter your username"
-        app:layout_constraintBottom_toTopOf="@+id/etUserNameInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFullNameInput"
-        app:layout_constraintVertical_bias="0.0" />
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Name Surname"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corners"
+       />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp">
+
+            </View>
+
+        <TextView
+            android:id="@+id/txtUserNamePrompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter your username"
+            android:textAlignment="center"
+            android:textSize="25dp"
+           />
+
+    <EditText
+        android:id="@+id/etUserNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Username"
+        android:background="@drawable/rounded_corners"
+      />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp">
+
+            </View>
 
     <TextView
         android:id="@+id/txtEmailRegPrompt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Enter your email"
-        app:layout_constraintBottom_toTopOf="@+id/etUserEmailInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserNameInput"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textAlignment="center"
+        android:textSize="25dp"
+      />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/etUserEmailInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:hint="your@email.com"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corners"
+       />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp">
+
+            </View>
+
+    <TextView
+        android:id="@+id/txtPassWordPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter your password"
+        android:textAlignment="center"
+        android:textSize="25dp"
+       />
+
+    <EditText
+        android:id="@+id/etUserPasswordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="**********"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corners"
+       />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp">
+
+            </View>
+
+    <TextView
+        android:id="@+id/txtConfirmPasswordPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm your password"
+        android:textAlignment="center"
+        android:textSize="25dp"
+  />
+
+    <EditText
+        android:id="@+id/etConfirmUserPasswordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="**********"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corners"
+      />
+
+
+
+        <Button
+            android:id="@+id/RedirectBTN"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Back"
+            android:textSize="25sp"
+            app:backgroundTint="@color/buttonBlue"
+             />
+
+        <Button
+            android:id="@+id/ConfirmSignUpBTN"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Register"
+            android:textSize="25sp"
+            app:backgroundTint="@color/buttonBlue"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+  </LinearLayout>
+</LinearLayout>

@@ -1,182 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SetInitialBudgetActivity">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".SetInitialBudgetActivity"
+    android:background="@color/backgroundBlue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtSetBudgetHeading"
-        android:layout_width="249dp"
-        android:layout_height="52dp"
-        android:text="Set Your Budget"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.116" />
-
-    <EditText
-        android:id="@+id/maxBudgetET"
-        android:layout_width="121dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="324dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.879"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.797" />
-
-    <TextView
-        android:id="@+id/txtMinimumAmountPrompt"
-        android:layout_width="119dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="8dp"
-        android:text="Minimum Amount"
-        app:layout_constraintBottom_toTopOf="@+id/minBudgetET"
-        app:layout_constraintEnd_toStartOf="@+id/txtMaximumAmountPrompt"
-        app:layout_constraintHorizontal_bias="0.419"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/targerBudgetET"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/minBudgetET"
-        android:layout_width="117dp"
-        android:layout_height="41dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/maxBudgetET"
-        app:layout_constraintHorizontal_bias="0.416"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.423" />
-
-    <TextView
-        android:id="@+id/txtMaximumAmountPrompt"
-        android:layout_width="122dp"
-        android:layout_height="19dp"
-        android:layout_marginBottom="8dp"
-        android:text="Maximum Amount"
-        app:layout_constraintBottom_toTopOf="@+id/maxBudgetET"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.882"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.992" />
-
-    <EditText
-        android:id="@+id/targerBudgetET"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.271" />
+        android:text="Set your Budget"
+        android:textSize="40sp"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
 
-    <Button
-        android:id="@+id/confirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confirm"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.868"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.951" />
+       />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/confirmButton"
-        app:layout_constraintHorizontal_bias="0.307"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
 
     <TextView
         android:id="@+id/txtTargetBudgetPrompt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Enter your target monthly budget"
-        app:layout_constraintBottom_toTopOf="@+id/targerBudgetET"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.837" />
+        android:textAlignment="center"
+        android:textSize="20dp"
+        />
+
+    <EditText
+        android:id="@+id/targerBudgetET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corners"
+        android:hint="R"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+
+    <TextView
+        android:id="@+id/txtMaximumAmountPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Maximum Amount"
+        android:textAlignment="center"
+        android:layout_weight="1"
+        android:textSize="20dp"
+        android:padding="8dp"
+        />
+
+        <TextView
+            android:id="@+id/txtMinimumAmountPrompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Minimum Amount"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:padding="8dp"
+
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+
+    <EditText
+        android:id="@+id/maxBudgetET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:background="@drawable/rounded_corners"
+        android:hint="R"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+       />
+
+    <EditText
+        android:id="@+id/minBudgetET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:background="@drawable/rounded_corners"
+        android:hint="R"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+       />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp">
+
+    </View>
+
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtCategoryHeading"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Category Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAlignment="center"
+        android:textSize="20dp"
+        />
 
     <Spinner
         android:id="@+id/spCategoryDropDown"
-        android:layout_width="202dp"
-        android:layout_height="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCategoryHeading"
-        app:layout_constraintVertical_bias="0.059" />
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:padding="16dp"
+        android:background="@color/inputBlue"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp">
+
+    </View>
+
 
     <TextView
         android:id="@+id/txtBudgetAmountPrompt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Category Budget Amount"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spCategoryDropDown"
-        app:layout_constraintVertical_bias="0.082" />
+        android:textAlignment="center"
+        android:textSize="20dp"
+        />
 
     <EditText
         android:id="@+id/etCategoryBudget"
-        android:layout_width="131dp"
-        android:layout_height="46dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberSigned"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtBudgetAmountPrompt"
-        app:layout_constraintVertical_bias="0.076" />
+        android:textSize="20dp"
+        android:padding="8dp"
+        android:hint="R"
+        android:background="@drawable/rounded_corners"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        />
 
-    <Button
-        android:id="@+id/btnAddCategory"
-        android:layout_width="wrap_content"
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Category"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCategoryBudget"
-        app:layout_constraintVertical_bias="0.138" />
+        android:padding="8dp"
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnAddCategory"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="25sp"
+            app:backgroundTint="@color/buttonBlue"
+            android:text="Add Category"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/confirmButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:backgroundTint="@color/buttonBlue"
+            android:text="Confirm"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:id="@+id/cancelButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:backgroundTint="@color/buttonBlue"
+            android:text="Cancel"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>
