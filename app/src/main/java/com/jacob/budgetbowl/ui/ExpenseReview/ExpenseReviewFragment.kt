@@ -124,6 +124,16 @@ class ExpenseReviewFragment : Fragment() {
                 recycler.adapter = newAdapter
         }
 
+        Binding.startDatee.setOnClickListener {
+            val datePicker = DatePickerFragment.newInstance(R.id.startDatee)
+            datePicker.show(parentFragmentManager, "datePicker")
+        }
+
+        Binding.EndDate.setOnClickListener {
+            val datePicker = DatePickerFragment.newInstance(R.id.EndDate)
+            datePicker.show(parentFragmentManager, "datePicker")
+        }
+
 
         Binding.filterBTN.setOnClickListener {
             val FilteredList: MutableList<ExpenseEntry> = mutableListOf()
@@ -131,7 +141,7 @@ class ExpenseReviewFragment : Fragment() {
 
             val dateFormatter = SimpleDateFormat("dd-mm-yyyy", Locale.getDefault())
             val startDate = Binding.startDatee.text.toString()
-            val endDate = Binding.endDate.text.toString()
+            val endDate = Binding.EndDate.text.toString()
 
 
 
