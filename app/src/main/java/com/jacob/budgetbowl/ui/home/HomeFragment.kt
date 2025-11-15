@@ -43,46 +43,38 @@ class HomeFragment : Fragment() {
 
 
         donutFill = binding.statsProgressbar
-        donutMax = binding.backgroundProgressbar
 
 
 
         val allCategories = mutableMapOf<String, CategoryObject>()
         val chosenCategories = mutableListOf<CategoryObject>()
-        val categoryExpenditures = mutableMapOf<CategoryObject, Int>()
 
 
 
 
-        homeViewModel.userId?.let { homeViewModel.db.collection(homeViewModel.userId).get().addOnSuccessListener {
+        homeViewModel.userId?.let { homeViewModel.db.collection(homeViewModel.userId).get().addOnSuccessListener{
         results ->
         for(document in results) {
            val docObject = document.toObject(CategoryObject::class.java)
-            allCategories.put(docObject.toString(),docObject)
-        } }
+            allCategories.put(docObject.toString(),docObject) } } }
 
 
 
-            for(category in allCategories)
-            {
-                homeViewModel.userId?.let { homeViewModel.db.collection(homeViewModel.userId).document(category.key)
-                    .collection("expenses").get().addOnSuccessListener {
-                        results ->
-                        var categoryExpense = 0
-                        for (expense in results)
-                        {
-                            val expenseObject = expense.toObject(ExpenseObject::class.java)
-                            categoryExpense +=expenseObject.ExpenseAmount
-                        }
 
-                    }
+        val numerator = allCategories["Home"]?.categoryTotalExpenditure
+        val denomintaor = allCategories["Home"]?.targetBudget
 
-                }
-
-            }
+        val double = numerator?.div(denomintaor!!)//ok Now I'm beggining to hate Android Studio
+        val pieProgress:Int? = double
 
 
-
+        if(pieProgress !=null)
+        {
+            donutFill.progress = pieProgress
+        }
+        else
+        {
+            donutFill.progress =0
         }
 
 

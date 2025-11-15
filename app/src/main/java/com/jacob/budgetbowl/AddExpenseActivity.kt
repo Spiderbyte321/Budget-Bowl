@@ -183,15 +183,16 @@ class AddExpenseActivity : AppCompatActivity() {
                 }
         }
 
-       /* userID?.let {
+       userID?.let {
             db.collection(userID).document(expenseData.CatId).get().addOnSuccessListener {
                 results->
                 val  category: CategoryObject? = results.toObject(CategoryObject::class.java)
+                category?.categoryTotalExpenditure +=expenseData.ExpenseAmount
 
-
-
+                val databaseCat = mutableMapOf<String, Any>("totalexpenditure" to category?.categoryTotalExpenditure.toString())
+                db.collection(userID).document(expenseData.CatId).set(databaseCat)
             }
-        }*/
+        }
 
 
         //move this toa back button later but works for now
