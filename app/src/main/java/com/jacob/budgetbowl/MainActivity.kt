@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var btnSignUp: Button
     private lateinit var btnLogin: Button
+    private lateinit var imgIconDecor : ImageView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         //Bind stuff
         btnSignUp = findViewById(R.id.ToSignUpBTN)
         btnLogin = findViewById(R.id.ToLoginBTN)
+        imgIconDecor = findViewById(R.id.IconIMG)
+        imgIconDecor.setImageResource(R.drawable.opsc_icon)
 
         btnSignUp.setOnClickListener{
 

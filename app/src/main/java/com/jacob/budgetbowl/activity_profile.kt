@@ -1,9 +1,16 @@
 package com.jacob.budgetbowl
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.GridView
+import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +26,8 @@ class activity_profile : AppCompatActivity() {
     private lateinit var btnSaveChanges: Button
     private lateinit var btnSetBudget: Button
     private lateinit var btnDiscardChanges: Button
+    private lateinit var btnEditProfileIcon: Button
+    private lateinit var profilePic: ImageView
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
@@ -38,6 +47,8 @@ class activity_profile : AppCompatActivity() {
         btnSaveChanges = findViewById(R.id.btnSaveChanges)
         btnSetBudget = findViewById(R.id.btnSetBudget)
         btnDiscardChanges = findViewById(R.id.btnDiscardChanges)
+        btnEditProfileIcon = findViewById(R.id.btnEditProfileIcon)
+        profilePic = findViewById(R.id.ProfilePic)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
@@ -57,6 +68,53 @@ class activity_profile : AppCompatActivity() {
             loadUserProfile()
             Toast.makeText(this, "Changes have been reverted", Toast.LENGTH_SHORT).show()
         }
+
+        btnEditProfileIcon.setOnClickListener { view ->
+            showIconPopup(view)
+        }
+    }
+
+    private fun showIconPopup(anchorView: View) {
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.popup_select_icon, null)
+
+        val popupWindow = PopupWindow(
+            popupView,
+            700, // You can adjust the width
+            700, // You can adjust the height
+            true // Focusable
+        )
+
+        val iconGridView = popupView.findViewById<GridView>(R.id.iconGridView)
+
+        val iconList = listOf(
+            R.drawable.clownfishplain,
+            R.drawable.clownfishdecor1,
+            R.drawable.clownfishdecor2,
+            R.drawable.clownfishdecor3,
+            R.drawable.redfishplain,
+            R.drawable.redfishdecor1,
+            R.drawable.redfishdecor2,
+            R.drawable.redfishdecor3,
+            R.drawable.purplefishplain,
+            R.drawable.purplefishdecor1,
+            R.drawable.purplefishdecor2,
+            R.drawable.purplefishdecor3,
+            R.drawable.sharkdecor2,
+            R.drawable.sharkdecor3
+        )
+
+        val adapter = IconAdapter(this, iconList)
+        iconGridView.adapter = adapter
+
+        iconGridView.setOnItemClickListener { _, _, position, _ ->
+            val selectedIcon = iconList[position]
+            profilePic.setImageResource(selectedIcon)
+            profilePic.tag = selectedIcon // Tag the ImageView with the resource ID
+            popupWindow.dismiss()
+        }
+
+        popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0)
     }
 
     private fun loadUserProfile() {
@@ -66,11 +124,22 @@ class activity_profile : AppCompatActivity() {
             db.collection("users").document(uid).get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
-                        val fullName = document.getString("fullName")
-                        val userName = document.getString("userName")
+                        etProfileFullname.setText(document.getString("fullName"))
+                        etProfileUsername.setText(document.getString("userName"))
 
-                        etProfileFullname.setText(fullName)
-                        etProfileUsername.setText(userName)
+                        val profileIconResId = document.getLong("profileIcon")?.toInt()
+                        
+                        if (profileIconResId != null) {
+                            profilePic.setImageResource(profileIconResId)
+                            profilePic.tag = profileIconResId
+                        } else {
+                            val defaultIcon = R.drawable.pfpwithborder__3_
+                            profilePic.setImageResource(defaultIcon)
+                            profilePic.tag = defaultIcon
+                            // Save the default icon back to the database so it's consistent
+                            db.collection("users").document(uid).update("profileIcon", defaultIcon)
+                        }
+
                     } else {
                         Toast.makeText(this, "User profile not found", Toast.LENGTH_SHORT).show()
                     }
@@ -87,12 +156,16 @@ class activity_profile : AppCompatActivity() {
             val uid = user.uid
             val fullName = etProfileFullname.text.toString().trim()
             val userName = etProfileUsername.text.toString().trim()
+            val profileIcon = profilePic.tag as? Int
 
             if (fullName.isNotEmpty() && userName.isNotEmpty()) {
-                val userProfile = mapOf(
+                val userProfile = mutableMapOf<String, Any>(
                     "fullName" to fullName,
                     "userName" to userName
                 )
+                if (profileIcon != null) {
+                    userProfile["profileIcon"] = profileIcon
+                }
 
                 db.collection("users").document(uid).update(userProfile)
                     .addOnSuccessListener {

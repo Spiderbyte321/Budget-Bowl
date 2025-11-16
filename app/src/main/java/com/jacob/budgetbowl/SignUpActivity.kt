@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,8 @@ class SignUpActivity: AppCompatActivity() {
 
     private lateinit var btnLoginRedirect: Button
 
+    private lateinit var imgTopDecor : ImageView
+
     private lateinit var Authenticator: FirebaseAuth
 
 
@@ -59,6 +62,9 @@ class SignUpActivity: AppCompatActivity() {
         etInputConfirmUserPassword = findViewById(R.id.etConfirmUserPasswordInput)
         btnSignUp= findViewById(R.id.ConfirmSignUpBTN)
         btnLoginRedirect= findViewById(R.id.RedirectBTN)
+        imgTopDecor = findViewById(R.id.imgTopDecor)
+        imgTopDecor.setImageResource(R.drawable.topimagestretched)
+
         Authenticator = FirebaseAuth.getInstance()//(Moodley,2025)
 
         btnLoginRedirect.setOnClickListener {
