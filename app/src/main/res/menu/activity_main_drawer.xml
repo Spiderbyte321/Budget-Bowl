@@ -13,6 +13,10 @@
             android:icon="@drawable/common_full_open_on_phone"
             android:title="@string/Review_Expense_Fragment"
             />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_circle"
+            android:title="@string/menu_profile" />
 
     </group>
 </menu>

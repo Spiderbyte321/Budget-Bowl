@@ -15,4 +15,23 @@
     <style name="Theme.BudgetBowl.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.BudgetBowl.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- This will color the Confirm button -->
+        <item name="colorAccent">@color/buttonBlue</item>
+        <item name="android:windowTitleStyle">@style/MyDatePickerTitleStyle</item>
+        <!-- This will style the button text -->
+        <item name="buttonBarPositiveButtonStyle">@style/MyDatePickerButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyDatePickerButtonStyle</item>
+    </style>
+
+    <style name="MyDatePickerTitleStyle" parent="@android:style/TextAppearance.Holo.DialogWindowTitle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MyDatePickerButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <!-- This ensures the text on the button is white for better contrast -->
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

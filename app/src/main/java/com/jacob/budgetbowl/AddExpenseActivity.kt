@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.jacob.budgetbowl.ui.ExpenseReview.DatePickerFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -73,6 +74,11 @@ class AddExpenseActivity : AppCompatActivity() {
             insets
         }
 
+        supportFragmentManager.setFragmentResultListener("entryDateRequestKey", this) { _, bundle ->
+            val result = bundle.getString("selectedDate")
+            etDateInput.setText(result)
+        }
+
         //Bind Inputs
         etAmountSpentInput = findViewById(R.id.etAmountSpent)
         etDateInput = findViewById(R.id.etEntryDate)
@@ -85,6 +91,11 @@ class AddExpenseActivity : AppCompatActivity() {
         btnBack.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
+        }
+
+        etDateInput.setOnClickListener {
+            val datePicker = DatePickerFragment.newInstance("entryDateRequestKey")
+            datePicker.show(supportFragmentManager, "datePicker")
         }
 
 
@@ -148,7 +159,7 @@ class AddExpenseActivity : AppCompatActivity() {
         val dateAdded = etDateInput.text.toString()
         val description = etDescriptionInput.text.toString()
 
-        val dateFormatter = SimpleDateFormat("dd-mm-yyyy", Locale.getDefault())
+        val dateFormatter = SimpleDateFormat("EEE, d MMM", Locale.getDefault())
 
 
         try {
@@ -158,7 +169,7 @@ class AddExpenseActivity : AppCompatActivity() {
 
         }catch (e: ParseException)
         {
-            Toast.makeText(this,"Date formatted incorrectly must be : dd-mm-yyyy",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Date formatted incorrectly must be : EEE, d MMM",Toast.LENGTH_SHORT).show()
             return
         }
 

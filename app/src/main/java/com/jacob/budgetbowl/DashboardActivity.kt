@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -15,8 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jacob.budgetbowl.databinding.ActivityDashboardBinding
 
 class DashboardActivity : AppCompatActivity() {
-
-    // ok now I just need to learn the content drawer stuff and link it to other screens we have
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityDashboardBinding
@@ -29,38 +28,39 @@ class DashboardActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarDashboard.toolbar)
 
-
-
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_dashboard)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home,R.id.ExpenseReview
+                R.id.nav_home, R.id.ExpenseReview, R.id.nav_profile
             ), drawerLayout
         )
-        //ok so I think we add to the content drawer witht eh appbarconfiguration
-        //then the rest will be handled by android
-        //almost there I think I just need to add it to the XML
-        //ok here's the order of operations
-        //Step 1 create the fragment XML in the layout folder
-        //Step 2 add that fragment to the mobile_navigation XML file in navigation
-        //either through code or the GUI
-        //Step 3 Set up the Item on the activity_main_drawer XML in the menu folder
-        //Step 4 add that fragment to the above appBarConfiguration
-        //We can use the nav drawer with activities but it's not a good idea
-        //better to use fragments rather than a new activity
-        //thankfully fragments aren't that complicated
-
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_profile -> {
+                    val intent = Intent(this, activity_profile::class.java)
+                    startActivity(intent)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                else -> {
+                    val handled = NavigationUI.onNavDestinationSelected(menuItem, navController)
+                    if (handled) {
+                        drawerLayout.closeDrawers()
+                    }
+                    handled
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.dashboard, menu)
         return true
     }

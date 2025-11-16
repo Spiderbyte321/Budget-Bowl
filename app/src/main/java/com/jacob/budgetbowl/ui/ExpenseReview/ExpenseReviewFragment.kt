@@ -59,6 +59,16 @@ class ExpenseReviewFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        parentFragmentManager.setFragmentResultListener("startDateRequestKey", this) { _, bundle ->
+            val result = bundle.getString("selectedDate")
+            Binding.startDatee.setText(result)
+        }
+
+        parentFragmentManager.setFragmentResultListener("endDateRequestKey", this) { _, bundle ->
+            val result = bundle.getString("selectedDate")
+            Binding.EndDate.setText(result)
+        }
+
     }
 
 
@@ -125,12 +135,12 @@ class ExpenseReviewFragment : Fragment() {
         }
 
         Binding.startDatee.setOnClickListener {
-            val datePicker = DatePickerFragment.newInstance(R.id.startDatee)
+            val datePicker = DatePickerFragment.newInstance("startDateRequestKey")
             datePicker.show(parentFragmentManager, "datePicker")
         }
 
         Binding.EndDate.setOnClickListener {
-            val datePicker = DatePickerFragment.newInstance(R.id.EndDate)
+            val datePicker = DatePickerFragment.newInstance("endDateRequestKey")
             datePicker.show(parentFragmentManager, "datePicker")
         }
 
@@ -139,7 +149,7 @@ class ExpenseReviewFragment : Fragment() {
             val FilteredList: MutableList<ExpenseEntry> = mutableListOf()
             var totalSpent: Int = 0
 
-            val dateFormatter = SimpleDateFormat("dd-mm-yyyy", Locale.getDefault())
+            val dateFormatter = SimpleDateFormat("EEE, d MMM", Locale.getDefault())
             val startDate = Binding.startDatee.text.toString()
             val endDate = Binding.EndDate.text.toString()
 
@@ -156,7 +166,7 @@ class ExpenseReviewFragment : Fragment() {
 
             }catch (e: ParseException)
             {
-                Toast.makeText(context,"Date formatted incorrectly must be : dd-mm-yyyy",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"Date formatted incorrectly must be : EEE, d MMM",Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 

@@ -9,8 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.textview.MaterialTextView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 //https://github.com/rochelle13/RochRun
@@ -74,14 +74,15 @@ class SignUpActivity: AppCompatActivity() {
 
     private fun SignUp()
     {
-        val UserEmail = etInputUserEmail
-        val UserPassword = etInputUserPassword
-        val UserConfirmedPassword = etInputConfirmUserPassword
-
+        val userEmail = etInputUserEmail.text.toString()
+        val userPassword = etInputUserPassword.text.toString()
+        val userConfirmedPassword = etInputConfirmUserPassword.text.toString()
+        val fullName = etInputFullname.text.toString()
+        val userName = etInputUserName.text.toString()
 
 
         //validate info before signing up
-        if(UserEmail.text.isBlank()||UserPassword.text.isBlank()||UserConfirmedPassword.text.isBlank())
+        if(userEmail.isBlank()||userPassword.isBlank()||userConfirmedPassword.isBlank()||fullName.isBlank()||userName.isBlank())
         {
             Toast.makeText(this,"All fields need to be filled in", Toast.LENGTH_SHORT).show()
             return
@@ -90,29 +91,41 @@ class SignUpActivity: AppCompatActivity() {
         //Needs to be toString cause .text returns an object that can be edited
         // while toString gives us the actual string value
 
-        if(UserPassword.text.toString()!=UserConfirmedPassword.text.toString())
+        if(userPassword!=userConfirmedPassword)
         {
             Toast.makeText(this,"Confirm Password and password need to match", Toast.LENGTH_SHORT).show()
             return
         }
 
         //Now we sign up since we validated
-        //Add the user info we want to push to the database
-        val intent = Intent(this, SetInitialBudgetActivity::class.java)
-        intent.putExtra("FullName",etInputFullname.text.toString())
-        intent.putExtra("UserName",etInputUserName.text.toString())
-        intent.putExtra("UserPassword",UserPassword.text.toString())
-
-        Authenticator.createUserWithEmailAndPassword(UserEmail.text.toString(),UserPassword.text.toString())
+        Authenticator.createUserWithEmailAndPassword(userEmail,userPassword)
             .addOnCompleteListener(this)
             {
                 if(it.isSuccessful)
                 {
-                    Toast.makeText(this,"Successfully Signed up", Toast.LENGTH_SHORT).show()
-                    startActivity(intent)
+                    val firebaseUser = Authenticator.currentUser
+                    val uid = firebaseUser!!.uid
+                    val db = FirebaseFirestore.getInstance()
+
+                    val user = hashMapOf(
+                        "fullName" to fullName,
+                        "userName" to userName,
+                        "email" to userEmail
+                    )
+
+                    db.collection("users").document(uid).set(user)
+                        .addOnSuccessListener {
+                            Toast.makeText(this,"Successfully Signed up", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, SetInitialBudgetActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Failed to save user data: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
                 }else
                 {
-                    Toast.makeText(this,"Sign up failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Sign up failed: ${it.exception?.message}", Toast.LENGTH_LONG).show()
                 }
             }
     }
