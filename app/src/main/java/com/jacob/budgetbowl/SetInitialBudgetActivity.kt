@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 
 
 //Reference Module Manual
-class SetInitialBudgetActivity : AppCompatActivity() {
+class SetInitialBudgetActivity : BaseActivity() { // Changed to BaseActivity
     //Take in values and which category then push it to room
     //uuuuuugggggghh
     //bind and set listeners oncreate
@@ -44,7 +45,6 @@ class SetInitialBudgetActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
 
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
-    private lateinit var userDAO: UserDAO
 
     private lateinit var inputMinBudget: EditText
 
@@ -95,7 +95,7 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         categorySpinner= findViewById(R.id.spCategoryDropDown)
         inputCategoryBudget = findViewById(R.id.etCategoryBudget)
 
-        val defaultBudget = mutableListOf<String>("Home","Mortgage","Utilities")
+        val defaultBudget = mutableListOf<String>("Groceries","Mortgage","Utilities")
 
         adapter = ArrayAdapter(
             this,
@@ -112,6 +112,12 @@ class SetInitialBudgetActivity : AppCompatActivity() {
 
 
         confirmButton.setOnClickListener {
+            val user = FirebaseAuth.getInstance().currentUser
+            if (user != null) {
+                val uid = user.uid
+                val userRef = db.collection("users").document(uid)
+                userRef.update("points", FieldValue.increment(10))
+            }
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
@@ -187,4 +193,5 @@ class SetInitialBudgetActivity : AppCompatActivity() {
 
     //References
     ////Android Open Source Project. 10 February 2025.Add spinners to your app .[Online] Avaliable at: https://developer.android.com/develop/ui/views/components/spinner [ Accessed on: 2 October 2025]
+
 }

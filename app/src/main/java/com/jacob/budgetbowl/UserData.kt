@@ -1,16 +1,11 @@
 package com.jacob.budgetbowl
 
-
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "userDB")
 data class UserData(
-    @PrimaryKey(autoGenerate = true) val id:Long=0,
-    var UserName: String,
-    var NameSurname: String,
-    var Password: String,
-    var MinBudget: Int,
-    var MaxBudget: Int,
-    var TargetBudget: Int,
+    val id: String = "",
+    var userName: String = "",
+    var nameSurname: String = "",
+    var minBudget: Int = 0,
+    var maxBudget: Int = 0,
+    var targetBudget: Int = 0,
+    var points: Int = 0
 )

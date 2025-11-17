@@ -16,9 +16,13 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://www.myget.org/F/abtsoftware/maven")
+        }
+
     }
 }
 
+
 rootProject.name = "Budget Bowl"
 include(":app")
- 

@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.jacob.budgetbowl.databinding.ActivityDashboardBinding
+import com.jacob.budgetbowl.ui.PrizeScreen
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -34,7 +35,7 @@ class DashboardActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.ExpenseReview, R.id.nav_profile
+                R.id.nav_home, R.id.ExpenseReview, R.id.nav_profile, R.id.nav_prizes
             ), drawerLayout
         )
 
@@ -45,6 +46,12 @@ class DashboardActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.nav_profile -> {
                     val intent = Intent(this, activity_profile::class.java)
+                    startActivity(intent)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                R.id.nav_prizes -> {
+                    val intent = Intent(this, PrizeScreen::class.java)
                     startActivity(intent)
                     drawerLayout.closeDrawers()
                     true

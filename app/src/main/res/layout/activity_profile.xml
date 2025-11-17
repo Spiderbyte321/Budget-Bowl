@@ -5,15 +5,71 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundBlue"
     android:orientation="vertical"
-    android:background="@color/backgroundBlue">
+    tools:context=".activity_profile">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/imgTopDecor"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="150dp"
         android:scaleType="centerCrop"
-        tools:srcCompat="@drawable/topimagestretched" />
+        app:srcCompat="@drawable/topimagestretched" />
+
+        <ImageView
+            android:id="@+id/homeButton"
+            android:layout_width="50dp"
+            android:layout_height="64dp"
+            android:layout_margin="16dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_home"
+            android:background="@color/inputBlue"/>
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/txtYourProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Your Profile"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ProfilePic"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/pfpwithborder__3_" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnEditProfileIcon"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:text="Edit Icon"
+        android:textSize="20sp"
+        app:backgroundTint="@color/buttonBlue" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,144 +78,90 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtTitle"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your Profile"
-                android:textSize="40sp"
-                android:layout_marginTop="8dp"
-                android:textStyle="bold"
-                android:textAlignment="center">
-            </TextView>
+                android:layout_margin="16dp"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="100dp"
-                app:cardElevation="0dp">
-
-                <ImageView
-                    android:id="@+id/ProfilePic"
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    tools:srcCompat="@drawable/pfpwithborder__3_" />
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:text="Full name" />
 
-            </androidx.cardview.widget.CardView>
+                <EditText
+                    android:id="@+id/etProfileFullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_corners"
+                    android:hint="Name Surname"
+                    android:padding="16dp" />
 
-            <Button
-                android:id="@+id/btnEditProfileIcon"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="20sp"
-                app:backgroundTint="@color/buttonBlue"
-                android:text="Edit Icon"
-                android:layout_weight="1"
-                android:layout_gravity="end"
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Username" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:background="@color/inputBlue">
+                <EditText
+                    android:id="@+id/etProfileUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_corners"
+                    android:hint="Username"
+                    android:padding="16dp" />
+            </LinearLayout>
 
-            </View>
-
-            <TextView
-                android:id="@+id/txtProfileName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text= "Full name"
-                android:textSize="25dp"
-               android:padding="8dp"
-                />
-
-            <EditText
-                android:id="@+id/etProfileFullname"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:layout_marginTop="16dp"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="Name Surname"
-                android:background="@drawable/rounded_corners"
-                />
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
 
-            <TextView
-                android:id="@+id/txtProfileUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text= "Username"
-                android:textSize="25dp"
-                android:padding="8dp"
-                />
+                <Button
+                    android:id="@+id/btnSaveChanges"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="Save Changes"
+                    android:textSize="20sp"
+                    app:backgroundTint="@color/buttonBlue" />
 
-            <EditText
-                android:id="@+id/etProfileUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:layout_marginTop="16dp"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="username"
-                android:background="@drawable/rounded_corners"
-                />
+                <Button
+                    android:id="@+id/btnDiscardChanges"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Discard Changes"
+                    android:textSize="20sp"
+                    app:backgroundTint="@color/buttonBlue" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                ></View>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnSetBudget"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:text="Edit Budget"
                 android:textSize="20sp"
-                app:backgroundTint="@color/buttonBlue"
-                android:text="Set Budget"
-                android:layout_marginEnd="32dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="20dp"
-                />
-            <Button
-                android:id="@+id/btnSaveChanges"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                app:backgroundTint="@color/buttonBlue"
-                android:text="Save Changes"
-                android:layout_marginEnd="32dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="20dp"
-                />
-
-            <Button
-                android:id="@+id/btnDiscardChanges"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                app:backgroundTint="@color/buttonBlue"
-                android:text="Discard Changes"
-                android:layout_marginEnd="32dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="20dp"
-                />
-
+                app:backgroundTint="@color/buttonBlue"  />
 
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

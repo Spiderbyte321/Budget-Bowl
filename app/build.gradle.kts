@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    kotlin("kapt")
     alias(libs.plugins.google.gms.google.services)
 }
 
@@ -58,13 +57,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     //added dependencies
 
-    implementation("androidx.room:room-runtime: 2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0")
     implementation("com.google.firebase:firebase-firestore:26.0.2")
-
-
+    implementation("com.google.firebase:firebase-storage-ktx:21.0.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
 }

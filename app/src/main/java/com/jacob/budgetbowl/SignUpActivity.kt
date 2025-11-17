@@ -11,12 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 
 //https://github.com/rochelle13/RochRun
 //Firebase Authentication
-class SignUpActivity: AppCompatActivity() {
+class SignUpActivity: BaseActivity() { // Changed to BaseActivity
 
 
     //do the sign up stuff
@@ -116,11 +117,14 @@ class SignUpActivity: AppCompatActivity() {
                     val user = hashMapOf(
                         "fullName" to fullName,
                         "userName" to userName,
-                        "email" to userEmail
+                        "email" to userEmail,
+                        "points" to 0
                     )
 
                     db.collection("users").document(uid).set(user)
                         .addOnSuccessListener {
+                            val userRef = db.collection("users").document(uid)
+                            userRef.update("points", FieldValue.increment(10))
                             Toast.makeText(this,"Successfully Signed up", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this, SetInitialBudgetActivity::class.java)
                             startActivity(intent)

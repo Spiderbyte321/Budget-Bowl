@@ -17,9 +17,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import de.hdodenhof.circleimageview.CircleImageView
 
-class activity_profile : AppCompatActivity() {
+class activity_profile : BaseActivity() { // Changed to BaseActivity
 
     private lateinit var etProfileFullname: EditText
     private lateinit var etProfileUsername: EditText
@@ -27,7 +29,8 @@ class activity_profile : AppCompatActivity() {
     private lateinit var btnSetBudget: Button
     private lateinit var btnDiscardChanges: Button
     private lateinit var btnEditProfileIcon: Button
-    private lateinit var profilePic: ImageView
+    private lateinit var profilePic: CircleImageView
+    private lateinit var homeButton: ImageView
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
@@ -49,11 +52,17 @@ class activity_profile : AppCompatActivity() {
         btnDiscardChanges = findViewById(R.id.btnDiscardChanges)
         btnEditProfileIcon = findViewById(R.id.btnEditProfileIcon)
         profilePic = findViewById(R.id.ProfilePic)
+        homeButton = findViewById(R.id.homeButton)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
         loadUserProfile()
+
+        homeButton.setOnClickListener {
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+        }
 
         btnSetBudget.setOnClickListener {
             val intent = Intent(this, SetInitialBudgetActivity::class.java)
@@ -128,7 +137,7 @@ class activity_profile : AppCompatActivity() {
                         etProfileUsername.setText(document.getString("userName"))
 
                         val profileIconResId = document.getLong("profileIcon")?.toInt()
-                        
+
                         if (profileIconResId != null) {
                             profilePic.setImageResource(profileIconResId)
                             profilePic.tag = profileIconResId
@@ -136,8 +145,6 @@ class activity_profile : AppCompatActivity() {
                             val defaultIcon = R.drawable.pfpwithborder__3_
                             profilePic.setImageResource(defaultIcon)
                             profilePic.tag = defaultIcon
-                            // Save the default icon back to the database so it's consistent
-                            db.collection("users").document(uid).update("profileIcon", defaultIcon)
                         }
 
                     } else {
@@ -169,6 +176,8 @@ class activity_profile : AppCompatActivity() {
 
                 db.collection("users").document(uid).update(userProfile)
                     .addOnSuccessListener {
+                        val userRef = db.collection("users").document(uid)
+                        userRef.update("points", FieldValue.increment(10))
                         Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { e ->

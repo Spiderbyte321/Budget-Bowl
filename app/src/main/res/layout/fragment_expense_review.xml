@@ -1,123 +1,123 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.ExpenseReview.ExpenseReviewFragment"
-    android:background="@color/backgroundBlue">
+    android:background="@color/backgroundBlue"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.ExpenseReview.ExpenseReviewFragment">
 
-    <TextView
-        android:id="@+id/ExpenseReviewHeading"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Expense Review"
-        android:textStyle="bold"
-        android:textSize="40sp"
-        android:textAlignment="center" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgTopDecor"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/topimagestretched" />
 
-    <TextView
-        android:id="@+id/CategoryHeading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Category"
-        android:textSize="30sp"
-        android:textAlignment="center" />
-
-    <Spinner
-        android:id="@+id/spCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded_corners" />
-
-    <TextView
-        android:id="@+id/Spent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="34sp"
-        android:padding="16dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Recycler"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        <ImageView
+            android:id="@+id/homeButton"
+            android:layout_width="50dp"
+            android:layout_height="64dp"
+            android:layout_margin="16dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_home"
+            android:background="@color/inputBlue"/>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
+            android:id="@+id/txtLoginHeading"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Start Date"
-            android:textAlignment="center"
-            android:textSize="25sp" />
+            android:text="Expense Review"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/endDate"
-            android:layout_width="0dp"
+            android:id="@+id/txtCategoryHeading"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="End Date"
+            android:text="Category"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            android:textAlignment="center" />
+
+        <Spinner
+            android:id="@+id/spCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="25sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/startDatee"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_corners"
-            android:ems="10"
-            android:focusable="false"
-            android:clickable="true"
-            android:inputType="none"
-            android:padding="8dp" />
-
-        <EditText
-            android:id="@+id/EndDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_corners"
-            android:ems="10"
-            android:focusable="false"
-            android:clickable="true"
-            android:inputType="none"
             android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_corners"
             />
-    </LinearLayout>
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
+        
+        <TextView
+            android:id="@+id/Spent"
+            android:textSize="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/filterBTN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="64dp"
-        android:text="Filter Dates"
-        android:textSize="25sp"
-        app:backgroundTint="@color/buttonBlue" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/startDatee"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:padding="8dp"
+                android:background="@drawable/rounded_corners"
+                android:hint="Select Start Date"
+                android:focusable="false"
+                android:clickable="true"/>
+
+            <EditText
+                android:id="@+id/EndDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:padding="8dp"
+                android:background="@drawable/rounded_corners"
+                android:hint="Select End Date"
+                android:focusable="false"
+                android:clickable="true"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/filterBTN"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="Filter Date"
+            android:textSize="20sp"
+            app:backgroundTint="@color/buttonBlue"  />
+
+    </LinearLayout>
 
 </LinearLayout>
