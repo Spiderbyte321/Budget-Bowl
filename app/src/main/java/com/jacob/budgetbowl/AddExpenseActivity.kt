@@ -22,10 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.jacob.budgetbowl.ui.ExpenseReview.DatePickerFragment
 import java.io.ByteArrayOutputStream
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import java.util.UUID
 
 
@@ -137,17 +133,24 @@ class AddExpenseActivity : AppCompatActivity() {
             val data = baos.toByteArray()
             val imageRef = storage.reference.child("expense_images/${expenseId}.jpg")
 
-            imageRef.putBytes(data)
-                .addOnSuccessListener {
-                    imageRef.downloadUrl.addOnSuccessListener { uri ->
-                        val imageUrl = uri.toString()
-                        val expenseWithImage = expenseEntry.copy(imageUrl = imageUrl)
-                        saveExpenseToFirestore(expenseWithImage)
+            // Chain the tasks to ensure the upload is complete before getting the URL
+            imageRef.putBytes(data).continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
                     }
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Failed to upload image: ${e.message}", Toast.LENGTH_LONG).show()
+                imageRef.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val downloadUri = task.result
+                    val imageUrl = downloadUri.toString()
+                    val expenseWithImage = expenseEntry.copy(imageUrl = imageUrl)
+                    saveExpenseToFirestore(expenseWithImage)
+                } else {
+                    Toast.makeText(this, "Failed to upload image.", Toast.LENGTH_LONG).show()
                 }
+            }
         } else {
             saveExpenseToFirestore(expenseEntry)
         }
@@ -159,9 +162,7 @@ class AddExpenseActivity : AppCompatActivity() {
             val categoryRef = db.collection("users").document(userID).collection("categories").document(expense.category)
 
             db.runBatch { batch ->
-                // 1. Create the new expense document in the 'expenses' collection
                 batch.set(expenseRef, expense)
-                // 2. Atomically increment the total expenditure for that category in the 'categories' collection
                 batch.update(categoryRef, "categoryTotalExpenditure", FieldValue.increment(expense.expenseAmount.toLong()))
             }
             .addOnSuccessListener {
