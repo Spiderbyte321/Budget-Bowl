@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backgroundBlue"
+    tools:context=".PrizeTank">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgTopDecor"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/topimagestretched" />
+
+        <ImageView
+            android:id="@+id/homeButton"
+            android:layout_width="50dp"
+            android:layout_height="64dp"
+            android:layout_margin="16dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_home"
+            android:background="@color/inputBlue"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/txtLoginHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Prize Tank"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:textAlignment="center" />
+        
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_prize" />
+
+        <TextView
+            android:id="@+id/Spent"
+            android:textSize="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+       
+
+    </LinearLayout>
+</LinearLayout>
