@@ -55,6 +55,10 @@ The target SDK is 36, making Android version 16 desirable.
 This project was made on a older version of Android Studio, so it is ideal that you have Android version 2025 1.1.12 for ideal implementation. 
 Disclaimer: Github is known to interfere with Android Studio compilers and can result in the 'legal' failing, 
 
+## Demo Video Link 
+
+https://drive.google.com/file/d/1zhWj5fpcmj0zhkXN_K5_JZFHprKxyI0e/view?usp=drive_link 
+
 
 
 
