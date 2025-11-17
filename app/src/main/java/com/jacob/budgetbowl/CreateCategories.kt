@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 // Data class to hold the information for each new category
 data class NewCategory(var name: String = "", var budget: String = "", var icon: Int? = null)
@@ -45,8 +46,8 @@ class CreateCategories : AppCompatActivity() {
         btnSaveCategories = findViewById(R.id.btnSaveCategories)
         homeButton = findViewById(R.id.homeButton)
 
-        addDefaultCategories()
         setupRecyclerView()
+        loadUserCategories()
 
         fab.setOnClickListener {
             categoryList.add(NewCategory())
@@ -63,14 +64,47 @@ class CreateCategories : AppCompatActivity() {
         }
     }
 
-    private fun addDefaultCategories() {
+    private fun loadUserCategories() {
+        if (userId == null) {
+            Toast.makeText(this, "You must be logged in to manage categories.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        db.collection("users").document(userId).collection("categories").get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    // No categories found for the user, set up the defaults.
+                    setupDefaultCategories()
+                } else {
+                    // User has existing categories, load them into the RecyclerView.
+                    categoryList.clear()
+                    val loadedCategories = documents.map { doc ->
+                        val categoryObject = doc.toObject(CategoryObject::class.java)
+                        NewCategory(
+                            name = doc.id,
+                            budget = categoryObject.targetBudget.toString(),
+                            icon = categoryObject.icon
+                        )
+                    }
+                    categoryList.addAll(loadedCategories)
+                    categoryAdapter.notifyDataSetChanged()
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error loading categories: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun setupDefaultCategories() {
         val defaults = listOf(
             NewCategory("Groceries", "", R.drawable.catfood),
             NewCategory("Utilities", "", R.drawable.catutilities),
             NewCategory("Rent", "", R.drawable.cathome)
         )
+        categoryList.clear()
         categoryList.addAll(defaults)
-        saveCategoriesToFirebase(defaults, showToast = false) // Immediately save defaults without toast
+        categoryAdapter.notifyDataSetChanged() // Update adapter with defaults
+        saveCategoriesToFirebase(defaults, showToast = false) // Save defaults for the user
     }
 
     private fun setupRecyclerView() {
@@ -131,12 +165,14 @@ class CreateCategories : AppCompatActivity() {
         for (category in categoriesToSave) {
             if (category.name.isNotBlank()) {
                 val budget = category.budget.toIntOrNull() ?: 0
-                val categoryObject = CategoryObject(
-                    targetBudget = budget,
-                    icon = category.icon
+                // Using a map to only update specific fields, preserving the expenditure.
+                val categoryData = mapOf(
+                    "targetBudget" to budget,
+                    "icon" to category.icon
                 )
                 val docRef = db.collection("users").document(userId).collection("categories").document(category.name.trim())
-                batch.set(docRef, categoryObject)
+                // Set with merge option to update existing documents without overwriting other fields.
+                batch.set(docRef, categoryData, SetOptions.merge())
             }
         }
 

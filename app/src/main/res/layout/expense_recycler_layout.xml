@@ -1,70 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
 
-
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop"
-        android:background="@color/backgroundBlue"
-        android:padding="16dp"
-
-        />
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="32dp">
+        android:background="@color/inputBlue"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/expenseEntryNumber"
+            android:id="@+id/expenseHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Expense Entry #"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:textStyle="bold"
+            android:text="Expense Entry" />
+        <TextView
+            android:id="@+id/expenseCategory"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:text="" />
+        <TextView
+            android:id="@+id/expenseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date" />
 
-            <TextView
-                android:id="@+id/expenseDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Date"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/expenseAmt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="R ###"
-                android:layout_weight="2"
-                android:textAlignment="textStart"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/rounded_corners"/>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/expenseAmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount: " />
 
         <TextView
             android:id="@+id/expenseDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description" />
+
+        <ImageView
+            android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="testerText"
-            android:textSize="20sp" />
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
 
-</FrameLayout>
-
+</androidx.cardview.widget.CardView>

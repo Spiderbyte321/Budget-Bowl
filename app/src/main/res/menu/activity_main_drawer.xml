@@ -17,6 +17,10 @@
             android:icon="@drawable/decoricon"
             android:title="Prizes" />
         <item
+            android:id="@+id/nav_prize_tank"
+            android:icon="@drawable/fish4"
+            android:title="Prize Tank" />
+        <item
             android:id="@+id/nav_graph"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Graph" />

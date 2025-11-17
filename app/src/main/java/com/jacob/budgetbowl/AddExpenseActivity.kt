@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.jacob.budgetbowl.ui.ExpenseReview.DatePickerFragment
@@ -93,7 +94,7 @@ class AddExpenseActivity : AppCompatActivity() {
         spinnerAdapter = ArrayAdapter<ECategory>(
             this,
             android.R.layout.simple_spinner_item,
-            ECategory.entries
+            ECategory.values()
         )
 
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -154,16 +155,23 @@ class AddExpenseActivity : AppCompatActivity() {
 
     private fun saveExpenseToFirestore(expense: ExpenseEntry) {
         if (userID != null) {
-            db.collection("users").document(userID).collection("expenses").document(expense.id)
-                .set(expense)
-                .addOnSuccessListener {
-                    Toast.makeText(this,"Expense Added", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, DashboardActivity::class.java)
-                    startActivity(intent)
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Failed to add expense: ${e.message}", Toast.LENGTH_LONG).show()
-                }
+            val expenseRef = db.collection("users").document(userID).collection("expenses").document(expense.id)
+            val categoryRef = db.collection("users").document(userID).collection("categories").document(expense.category)
+
+            db.runBatch { batch ->
+                // 1. Create the new expense document in the 'expenses' collection
+                batch.set(expenseRef, expense)
+                // 2. Atomically increment the total expenditure for that category in the 'categories' collection
+                batch.update(categoryRef, "categoryTotalExpenditure", FieldValue.increment(expense.expenseAmount.toLong()))
+            }
+            .addOnSuccessListener {
+                Toast.makeText(this,"Expense Added", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, DashboardActivity::class.java)
+                startActivity(intent)
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to add expense: ${e.message}", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }

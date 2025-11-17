@@ -8,14 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 class PrizeTank : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var prizeAdapter: PrizeAdapter
-    private val prizeUrls = mutableListOf<String>()
-    private lateinit var databaseReference: DatabaseReference
+    private val prizeNames = mutableListOf<String>()
+    private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,39 +32,41 @@ class PrizeTank : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 2)
 
         auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
         val currentUser = auth.currentUser
 
         if (currentUser != null) {
             val userId = currentUser.uid
-            databaseReference = FirebaseDatabase.getInstance().reference.child("users").child(userId).child("prizes")
-
-            fetchPrizes()
+            fetchPrizes(userId)
         } else {
             // Handle user not logged in case
         }
     }
 
-    private fun fetchPrizes() {
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                prizeUrls.clear()
-                for (prizeSnapshot in snapshot.children) {
-                    val prizeUrl = prizeSnapshot.getValue(String::class.java)
-                    prizeUrl?.let { prizeUrls.add(it) }
+    private fun fetchPrizes(userId: String) {
+        db.collection("users").document(userId).collection("prizes")
+            .orderBy("timestamp")
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    // Handle error
+                    return@addSnapshotListener
                 }
 
-                if (prizeUrls.isEmpty()) {
+                prizeNames.clear()
+                for (doc in snapshots!!) {
+                    val prizeName = doc.getString("prizeName")
+                    if (prizeName != null) {
+                        prizeNames.add(prizeName)
+                    }
+                }
+
+                if (prizeNames.isEmpty()) {
                     showNoPrizesDialog()
                 } else {
-                    prizeAdapter = PrizeAdapter(prizeUrls)
+                    prizeAdapter = PrizeAdapter(prizeNames)
                     recyclerView.adapter = prizeAdapter
                 }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle error
-            }
-        })
     }
 
     private fun showNoPrizesDialog() {

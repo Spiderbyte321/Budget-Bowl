@@ -32,20 +32,6 @@ class ExpenseReviewFragment : Fragment() {
     private lateinit var expenseList: MutableList<ExpenseEntry>
     private lateinit var newAdapter: CustomRecyclerAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        parentFragmentManager.setFragmentResultListener("startDateRequestKey", this) { _, bundle ->
-            val result = bundle.getString("selectedDate")
-            Binding.startDatee.setText(result)
-        }
-
-        parentFragmentManager.setFragmentResultListener("endDateRequestKey", this) { _, bundle ->
-            val result = bundle.getString("selectedDate")
-            Binding.EndDate.setText(result)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,10 +41,27 @@ class ExpenseReviewFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val adapter = ArrayAdapter<ECategory>(
+        super.onViewCreated(view, savedInstanceState)
+
+        // Set up the result listeners here, after the view is created.
+        parentFragmentManager.setFragmentResultListener("startDateRequestKey", this) { _, bundle ->
+            val result = bundle.getString("selectedDate")
+            Binding.startDatee.setText(result)
+        }
+
+        parentFragmentManager.setFragmentResultListener("endDateRequestKey", this) { _, bundle ->
+            val result = bundle.getString("selectedDate")
+            Binding.EndDate.setText(result)
+        }
+
+        // Create a mutable list for the spinner, add "All", then add the enum values.
+        val spinnerCategories = mutableListOf("All")
+        spinnerCategories.addAll(ECategory.values().map { it.name })
+
+        val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            ECategory.entries
+            spinnerCategories
         )
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -113,42 +116,45 @@ class ExpenseReviewFragment : Fragment() {
     }
 
     private fun filterExpenses() {
-        val filteredList = mutableListOf<ExpenseEntry>()
-        val category = Binding.spCategory.selectedItem.toString()
-        val startDate = Binding.startDatee.text.toString()
-        val endDate = Binding.EndDate.text.toString()
-        val dateFormatter = SimpleDateFormat("EEE, d MMM", Locale.getDefault())
+        val selectedCategory = Binding.spCategory.selectedItem.toString()
+        val startDateStr = Binding.startDatee.text.toString()
+        val endDateStr = Binding.EndDate.text.toString()
 
-        val startObject: Date?
-        val endObject: Date?
-
-        try {
-            startObject = dateFormatter.parse(startDate)
-            endObject = dateFormatter.parse(endDate)
-        } catch (e: ParseException) {
-            Toast.makeText(context, "Date formatted incorrectly must be : EEE, d MMM", Toast.LENGTH_SHORT).show()
+        if (startDateStr.isBlank() || endDateStr.isBlank()) {
+            Toast.makeText(context, "Please select both a start and end date.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        for (expense in expenseList) {
-            val expenseDateObject: Date?
-            try {
-                expenseDateObject = dateFormatter.parse(expense.expenseDate)
-            } catch (e: ParseException) {
-                continue
+        val dateFormatter = SimpleDateFormat("EEE, d MMM", Locale.getDefault())
+
+        try {
+            val startDate = dateFormatter.parse(startDateStr)
+            val endDate = dateFormatter.parse(endDateStr)
+
+            val filteredList = expenseList.filter { expense ->
+                val expenseDate = try {
+                    dateFormatter.parse(expense.expenseDate)
+                } catch (e: ParseException) {
+                    null
+                }
+
+                val isDateInRange = expenseDate != null && expenseDate.after(startDate) && expenseDate.before(endDate)
+                val isCategoryMatch = if (selectedCategory == "All") true else expense.category == selectedCategory
+
+                isDateInRange && isCategoryMatch
             }
 
-            if (expenseDateObject.after(startObject) && expenseDateObject.before(endObject) && expense.category == category) {
-                filteredList.add(expense)
+            if (filteredList.isEmpty()) {
+                Toast.makeText(context, "No expenses found for the selected filters.", Toast.LENGTH_SHORT).show()
             }
-        }
 
-        if (filteredList.isEmpty()) {
-            Toast.makeText(context, "No items found widen date range", Toast.LENGTH_SHORT).show()
-        }
+            newAdapter.updateAdapter(filteredList)
+            updateTotalSpent(filteredList)
 
-        newAdapter.updateAdapter(filteredList)
-        updateTotalSpent(filteredList)
+        } catch (e: ParseException) {
+            Toast.makeText(context, "Date formatted incorrectly. It must be in 'Day, d Mon' format (e.g., 'Wed, 4 Jul').", Toast.LENGTH_LONG).show()
+            return
+        }
     }
 
     private fun updateTotalSpent(list: List<ExpenseEntry>) {

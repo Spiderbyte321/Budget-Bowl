@@ -166,8 +166,9 @@ class PrizeScreen : BaseActivity() {
         val user = auth.currentUser
         if (user != null) {
             val uid = user.uid
+            val prizeName = resources.getResourceEntryName(prizeResId)
             val prizeData = hashMapOf(
-                "prizeResId" to prizeResId,
+                "prizeName" to prizeName,
                 "timestamp" to FieldValue.serverTimestamp()
             )
             db.collection("users").document(uid).collection("prizes").add(prizeData)

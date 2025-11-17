@@ -35,7 +35,7 @@ class DashboardActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.ExpenseReview, R.id.nav_profile, R.id.nav_prizes, R.id.nav_graph, R.id.nav_create_categories
+                R.id.nav_home, R.id.ExpenseReview, R.id.nav_profile, R.id.nav_prizes, R.id.nav_prize_tank, R.id.nav_graph, R.id.nav_create_categories
             ), drawerLayout
         )
 
@@ -52,6 +52,12 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 R.id.nav_prizes -> {
                     val intent = Intent(this, PrizeScreen::class.java)
+                    startActivity(intent)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                R.id.nav_prize_tank -> {
+                    val intent = Intent(this, PrizeTank::class.java)
                     startActivity(intent)
                     drawerLayout.closeDrawers()
                     true
