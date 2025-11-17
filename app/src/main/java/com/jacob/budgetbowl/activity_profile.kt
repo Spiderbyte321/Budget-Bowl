@@ -30,6 +30,7 @@ class activity_profile : BaseActivity() { // Changed to BaseActivity
     private lateinit var btnCreateCategories: Button
     private lateinit var btnDiscardChanges: Button
     private lateinit var btnEditProfileIcon: Button
+    private lateinit var btnSignOut: Button
     private lateinit var profilePic: CircleImageView
     private lateinit var homeButton: ImageView
 
@@ -53,6 +54,7 @@ class activity_profile : BaseActivity() { // Changed to BaseActivity
         btnCreateCategories = findViewById(R.id.btnCreateCategories)
         btnDiscardChanges = findViewById(R.id.btnDiscardChanges)
         btnEditProfileIcon = findViewById(R.id.btnEditProfileIcon)
+        btnSignOut = findViewById(R.id.btnSignOut)
         profilePic = findViewById(R.id.ProfilePic)
         homeButton = findViewById(R.id.homeButton)
 
@@ -87,6 +89,14 @@ class activity_profile : BaseActivity() { // Changed to BaseActivity
 
         btnEditProfileIcon.setOnClickListener { view ->
             showIconPopup(view)
+        }
+
+        btnSignOut.setOnClickListener {
+            auth.signOut()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
         }
     }
 
