@@ -5,10 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundBlue"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".SetInitialBudgetActivity"
-    android:background="@color/backgroundBlue">
+    tools:context=".ui.PrizeScreen">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -19,6 +18,15 @@
             android:layout_height="100dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/topimagestretched" />
+
+        <ImageView
+            android:id="@+id/homeButton"
+            android:layout_width="50dp"
+            android:layout_height="64dp"
+            android:layout_margin="16dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_home"
+            android:background="@color/inputBlue"/>
     </FrameLayout>
 
     <LinearLayout
@@ -30,7 +38,7 @@
             android:id="@+id/txtSetBudgetHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Set your Budget"
+            android:text="Edit your Budget"
             android:textSize="40sp"
             android:layout_marginTop="8dp"
             android:textStyle="bold"

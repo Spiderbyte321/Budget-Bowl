@@ -3,7 +3,6 @@ package com.jacob.budgetbowl
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -36,7 +35,7 @@ class DashboardActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.ExpenseReview, R.id.nav_profile, R.id.nav_prizes, R.id.nav_graph
+                R.id.nav_home, R.id.ExpenseReview, R.id.nav_profile, R.id.nav_prizes, R.id.nav_graph, R.id.nav_create_categories
             ), drawerLayout
         )
 
@@ -59,6 +58,12 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 R.id.nav_graph -> {
                     val intent = Intent(this, CategoryGraph::class.java)
+                    startActivity(intent)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                R.id.nav_create_categories -> {
+                    val intent = Intent(this, CreateCategories::class.java)
                     startActivity(intent)
                     drawerLayout.closeDrawers()
                     true

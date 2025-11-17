@@ -36,9 +36,6 @@ class HomeFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        loadUserProfileAndBudgetData()
-        setupCategoryRecyclerView()
-
         val fabExpense: FloatingActionButton = binding.floatingActionButton
 
         fabExpense.setOnClickListener {
@@ -48,11 +45,16 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadUserProfileAndBudgetData()
+        setupCategoryRecyclerView()
+    }
+
     private fun loadUserProfileAndBudgetData() {
         val user = auth.currentUser
         if (user != null) {
             val uid = user.uid
-            // 1. Fetch User Profile from /users/{uid}
             db.collection("users").document(uid).get()
                 .addOnSuccessListener { userProfileDoc ->
                     if (userProfileDoc != null && userProfileDoc.exists()) {
@@ -66,31 +68,22 @@ class HomeFragment : Fragment() {
                             binding.ProfilePic.setImageResource(R.drawable.pfpwithborder__3_)
                         }
 
-                        // 2. Fetch Overall Budget from /{uid}/overallbudget
-                        db.collection(uid).document("overallbudget").get()
-                            .addOnSuccessListener { budgetDoc ->
-                                val totalBudget = if (budgetDoc != null && budgetDoc.exists()) {
-                                    // Field from SetInitialBudgetActivity: "targetbudget" (String)
-                                    budgetDoc.getString("targetbudget")?.toInt() ?: 0
-                                } else {
-                                    0
-                                }
+                        val totalBudget = userProfileDoc.getLong("targetBudget")?.toInt() ?: 0
 
-                                // 3. Fetch categories to calculate total spent
-                                db.collection("users").document(uid).collection("categories").get()
-                                    .addOnSuccessListener { categoryDocs ->
-                                        val totalSpent = categoryDocs.sumOf { it.toObject(CategoryObject::class.java).categoryTotalExpenditure }
-                                        
-                                        // 4. Update Budget UI
-                                        binding.numberOfCalories.text = "$totalSpent / $totalBudget"
-                                        
-                                        if (totalBudget > 0) {
-                                            val overallProgress = (totalSpent.toDouble() / totalBudget * 100).toInt()
-                                            binding.statsProgressbar.progress = overallProgress
-                                        } else {
-                                            binding.statsProgressbar.progress = 0
-                                        }
-                                    }
+                        // Fetch categories to calculate total spent
+                        db.collection("users").document(uid).collection("categories").get()
+                            .addOnSuccessListener { categoryDocs ->
+                                val totalSpent = categoryDocs.sumOf { it.toObject(CategoryObject::class.java).categoryTotalExpenditure }
+
+                                // Update Budget UI
+                                binding.numberOfCalories.text = "$totalSpent / $totalBudget"
+
+                                if (totalBudget > 0) {
+                                    val overallProgress = (totalSpent.toDouble() / totalBudget * 100).toInt()
+                                    binding.statsProgressbar.progress = overallProgress
+                                } else {
+                                    binding.statsProgressbar.progress = 0
+                                }
                             }
                             .addOnFailureListener { e ->
                                 Toast.makeText(context, "Failed to load budget data: ${e.message}", Toast.LENGTH_LONG).show()

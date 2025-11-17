@@ -46,9 +46,7 @@ lateinit var authenticator: FirebaseAuth
         imgTopDecor = findViewById(R.id.imgTopDecor)
         imgTopDecor.setImageResource(R.drawable.topimagestretched)
 
-
-
-        authenticator = FirebaseAuth.getInstance()//(Moodley,2025)
+        authenticator = FirebaseAuth.getInstance()
 
         btnLogin.setOnClickListener {
         login()

@@ -243,7 +243,6 @@ class CategoryGraph : AppCompatActivity() {
                     }
 
                     binding.totalBudgetProgressBar.progress = percentage
-                    binding.txtTotalBudgetPercentage.text = "$percentage%"
                 }
                 .addOnFailureListener { exception ->
                     Toast.makeText(this, "Error getting total budget: ${exception.message}", Toast.LENGTH_SHORT).show()

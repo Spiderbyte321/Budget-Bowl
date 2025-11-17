@@ -2,6 +2,7 @@ package com.jacob.budgetbowl
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -11,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class SetInitialBudgetActivity : AppCompatActivity() {
+class EditBudget : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -27,7 +28,9 @@ class SetInitialBudgetActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_set_initial_budget)
+        setContentView(R.layout.activity_edit_budget)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         inputMinBudget = findViewById(R.id.minBudgetET)
         inputMaxBudget = findViewById(R.id.maxBudgetET)
@@ -37,14 +40,15 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         questionMarkMaxBudget = findViewById(R.id.questionMarkMaxBudget)
         questionMarkMinBudget = findViewById(R.id.questionMarkMinBudget)
 
+        loadBudgetData()
+
         confirmButton.setOnClickListener {
             saveOverallBudget()
-            val intent = Intent(this, CreateCategories::class.java)
-            startActivity(intent)
+            navigateToHome()
         }
 
         cancelButton.setOnClickListener {
-            showCancelConfirmationDialog()
+            navigateToHome()
         }
 
         questionMarkMaxBudget.setOnClickListener {
@@ -53,6 +57,43 @@ class SetInitialBudgetActivity : AppCompatActivity() {
 
         questionMarkMinBudget.setOnClickListener {
             showInfoDialog("Minimum Budget", "This is the minimum amount you can spend in a month. It must be lower than your target. .")
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                navigateToHome()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun navigateToHome() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
+    }
+
+    private fun loadBudgetData() {
+        if (userId != null) {
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        val minBudget = document.getLong("minBudget")?.toString()
+                        val maxBudget = document.getLong("maxBudget")?.toString()
+                        val targetBudget = document.getLong("targetBudget")?.toString()
+
+                        inputMinBudget.setText(minBudget)
+                        inputMaxBudget.setText(maxBudget)
+                        inputTargetBudget.setText(targetBudget)
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error loading budget data: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 
@@ -85,15 +126,4 @@ class SetInitialBudgetActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun showCancelConfirmationDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Are you sure?")
-        builder.setMessage("Are you sure you want to leave? Any unsaved changes will be lost.")
-        builder.setPositiveButton("Leave") { _, _ ->
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-        builder.setNegativeButton("Stay", null)
-        builder.show()
-    }
 }

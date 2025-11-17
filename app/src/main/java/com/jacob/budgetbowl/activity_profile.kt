@@ -27,6 +27,7 @@ class activity_profile : BaseActivity() { // Changed to BaseActivity
     private lateinit var etProfileUsername: EditText
     private lateinit var btnSaveChanges: Button
     private lateinit var btnSetBudget: Button
+    private lateinit var btnCreateCategories: Button
     private lateinit var btnDiscardChanges: Button
     private lateinit var btnEditProfileIcon: Button
     private lateinit var profilePic: CircleImageView
@@ -49,6 +50,7 @@ class activity_profile : BaseActivity() { // Changed to BaseActivity
         etProfileUsername = findViewById(R.id.etProfileUsername)
         btnSaveChanges = findViewById(R.id.btnSaveChanges)
         btnSetBudget = findViewById(R.id.btnSetBudget)
+        btnCreateCategories = findViewById(R.id.btnCreateCategories)
         btnDiscardChanges = findViewById(R.id.btnDiscardChanges)
         btnEditProfileIcon = findViewById(R.id.btnEditProfileIcon)
         profilePic = findViewById(R.id.ProfilePic)
@@ -65,7 +67,12 @@ class activity_profile : BaseActivity() { // Changed to BaseActivity
         }
 
         btnSetBudget.setOnClickListener {
-            val intent = Intent(this, SetInitialBudgetActivity::class.java)
+            val intent = Intent(this, EditBudget::class.java)
+            startActivity(intent)
+        }
+
+        btnCreateCategories.setOnClickListener {
+            val intent = Intent(this, CreateCategories::class.java)
             startActivity(intent)
         }
 

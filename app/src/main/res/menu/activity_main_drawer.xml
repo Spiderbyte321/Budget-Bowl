@@ -6,25 +6,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/ExpenseReview"
-            android:icon="@drawable/common_full_open_on_phone"
-            android:title="@string/Review_Expense_Fragment"
-            />
-        <item
-            android:id="@+id/nav_graph"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/expense_graph" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_account_circle"
-            android:title="@string/menu_profile" />
+            android:title="Profile" />
         <item
             android:id="@+id/nav_prizes"
-            android:icon="@android:drawable/btn_star"
-            android:title="@string/menu_prizes" />
-
+            android:icon="@drawable/decoricon"
+            android:title="Prizes" />
+        <item
+            android:id="@+id/nav_graph"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Graph" />
+        <item
+            android:id="@+id/nav_create_categories"
+            android:icon="@android:drawable/ic_input_add"
+            android:title="Create Categories" />
+        <item
+            android:id="@+id/ExpenseReview"
+            android:icon="@drawable/ic_money"
+            android:title="Expense Review" />
     </group>
 </menu>
