@@ -32,22 +32,57 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/txtPrizeHeading"
+        android:id="@+id/txtExpenseGraphHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/expense_graph"
+        android:text="Expense Graph"
         android:textAlignment="center"
         android:textSize="40sp"
         android:textStyle="bold" />
 
     <FrameLayout
-        android:id="@+id/GraphFrame"
+        android:id="@+id/graphFrame"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@color/inputBlue">
 
-    </FrameLayout>
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
+    </FrameLayout>
+    
+    <TextView
+        android:id="@+id/txtTotalBudgetHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Budget"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        android:textAlignment="center" />
+    
+    <LinearLayout
+        android:id="@+id/totalBudgetLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <ProgressBar
+            android:id="@+id/totalBudgetProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:scaleY="4"
+            android:max="100" />
+
+
+
+    </LinearLayout>
+    
     <TextView
         android:id="@+id/txtCategoryHeading"
         android:layout_width="match_parent"
@@ -66,6 +101,21 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_corners"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtCategorySpending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
