@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -67,6 +68,16 @@ class ExpenseReviewFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         Binding.spCategory.adapter = adapter
 
+        Binding.spCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                filterExpenses()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
+
         expenseList = mutableListOf()
         newAdapter = CustomRecyclerAdapter(expenseList, this)
 
@@ -121,7 +132,7 @@ class ExpenseReviewFragment : Fragment() {
         val endDateStr = Binding.EndDate.text.toString()
 
         if (startDateStr.isBlank() || endDateStr.isBlank()) {
-            Toast.makeText(context, "Please select both a start and end date.", Toast.LENGTH_SHORT).show()
+            // Don't filter if the dates are not selected yet.
             return
         }
 

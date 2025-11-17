@@ -23,6 +23,7 @@ class CustomRecyclerAdapter(var dataset: List<ExpenseEntry>, val fragment: Fragm
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val expense = dataset[position]
+        holder.expenseCategory.text = "Category: " + expense.category
         holder.expenseDate.text = expense.expenseDate
         holder.expenseAmount.text = "Amount: " + expense.expenseAmount.toString()
         holder.expenseDescription.text = expense.expenseDescription
@@ -52,6 +53,7 @@ class CustomRecyclerAdapter(var dataset: List<ExpenseEntry>, val fragment: Fragm
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val expenseCategory: TextView = view.findViewById(R.id.expenseCategory)
         val expenseAmount: TextView = view.findViewById(R.id.expenseAmt)
         val expenseDate: TextView = view.findViewById(R.id.expenseDate)
         val expenseDescription: TextView = view.findViewById(R.id.expenseDesc)
